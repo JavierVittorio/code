@@ -157,3 +157,15 @@ def test_payment_terms_fix_inconsistent_per_date_readings():
     d = derive_fields(typed, [], raw)
     assert str(typed["invoice_date"]) == "2026-08-02" and str(typed["due_date"]) == "2026-08-09"
     assert list(d) == ["invoice_date"]  # only the wrong one is changed
+
+
+def test_cache_hits_are_not_billed():
+    class CachedClient(FakeClient):
+        async def chat(self, messages, **kw):
+            r = await super().chat(messages, **kw)
+            r.cache_hit, r.cost_usd = True, 0.004
+            return r
+    ex = Extractor(S, client=CachedClient([GOOD]), grounding_enabled=False)
+    r = asyncio.run(ex.extract(_png(), "x.png", "doc"))
+    assert r.usage.cache_hit and r.usage.calls == 0 and r.usage.cost_usd == 0 and r.usage.input_tokens == 0
+    assert r.meta["attempts"][0]["in"] == 1000  # original size still visible for analysis

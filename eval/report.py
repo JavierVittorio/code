@@ -19,6 +19,7 @@ def render_markdown(card: dict) -> str:
          "## Headline", "",
          "| metric | value | meaning |", "|---|---|---|",
          f"| field accuracy | **{_p(h['accuracy'])}** | labeled fields whose final answer is right (incl. correct 'absent') |",
+         f"| raw accuracy (before abstention) | {_p(h.get('raw_accuracy'))} | extraction quality independent of the abstain threshold |",
          f"| precision of emitted values | **{_p(h['precision'])}** | of values we returned, share correct |",
          f"| hallucination rate | **{_p(h['hallucination_rate'])}** | values returned for fields verified NOT on the page |",
          f"| coverage | {_p(h['coverage'])} | fields not abstained / failed |",

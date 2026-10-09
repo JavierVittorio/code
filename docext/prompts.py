@@ -8,7 +8,7 @@ import json
 from .ingest import Page
 from .schema import FIELD_SPECS, Kind
 
-PROMPT_VERSION = "v2"
+PROMPT_VERSION = "v3"
 
 _KIND_FORMAT = {
     Kind.text: "string",
@@ -100,7 +100,7 @@ def _compact_skeleton() -> dict:
 def extraction_messages(pages: list[Page], profile: str, output_format: str = "verbose") -> list[dict]:
     if output_format == "compact":
         shape = ("Return compact JSON in this shape. Include ONLY fields that are printed on the document; omit "
-                 "absent fields entirely (omitted = null). Each field is [value, evidence, page, confidence]; each "
+                 "absent fields entirely (omitted = null), but always include document_type and currency. Each field is [value, evidence, page, confidence]; each "
                  "line item is a row [" + ", ".join(LINE_ITEM_COLUMNS) + "]. No whitespace or indentation:\n"
                  + json.dumps(_compact_skeleton()))
     else:

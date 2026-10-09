@@ -2,6 +2,7 @@
  "headline": {
   "n": 603,
   "accuracy": 0.9585,
+  "raw_accuracy": 0.9585,
   "precision": 0.96,
   "coverage": 1.0,
   "hallucination_rate": 0.0,
@@ -22,6 +23,7 @@
   "calib": {
    "n": 293,
    "accuracy": 0.9659,
+   "raw_accuracy": 0.9659,
    "precision": 0.9692,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -40,6 +42,7 @@
   "test": {
    "n": 310,
    "accuracy": 0.9516,
+   "raw_accuracy": 0.9516,
    "precision": 0.9517,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -60,6 +63,7 @@
   "document_type": {
    "n": 53,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -75,6 +79,7 @@
   "invoice_number": {
    "n": 53,
    "accuracy": 0.9245,
+   "raw_accuracy": 0.9245,
    "precision": 0.9412,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -93,6 +98,7 @@
   "invoice_date": {
    "n": 53,
    "accuracy": 0.8868,
+   "raw_accuracy": 0.8868,
    "precision": 0.8868,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -109,6 +115,7 @@
   "due_date": {
    "n": 47,
    "accuracy": 0.9362,
+   "raw_accuracy": 0.9362,
    "precision": 0.9302,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -126,6 +133,7 @@
   "currency": {
    "n": 53,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -141,6 +149,7 @@
   "po_number": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -157,6 +166,7 @@
   "payment_terms": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -173,6 +183,7 @@
   "vendor_name": {
    "n": 53,
    "accuracy": 0.9811,
+   "raw_accuracy": 0.9811,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -189,6 +200,7 @@
   "vendor_address": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -204,6 +216,7 @@
   "vendor_tax_id": {
    "n": 12,
    "accuracy": 0.9167,
+   "raw_accuracy": 0.9167,
    "precision": 0.8889,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -221,6 +234,7 @@
   "bill_to_name": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -236,6 +250,7 @@
   "bill_to_address": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -251,6 +266,7 @@
   "ship_to_name": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -267,6 +283,7 @@
   "ship_to_address": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -283,6 +300,7 @@
   "subtotal": {
    "n": 53,
    "accuracy": 0.9434,
+   "raw_accuracy": 0.9434,
    "precision": 0.9434,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -299,6 +317,7 @@
   "discount": {
    "n": 12,
    "accuracy": 0.9167,
+   "raw_accuracy": 0.9167,
    "precision": 0.75,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -316,6 +335,7 @@
   "other_charges": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": null,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -331,6 +351,7 @@
   "tax_rate": {
    "n": 12,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -347,6 +368,7 @@
   "tax_amount": {
    "n": 53,
    "accuracy": 0.9434,
+   "raw_accuracy": 0.9434,
    "precision": 0.9615,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -364,6 +386,7 @@
   "total": {
    "n": 53,
    "accuracy": 0.9434,
+   "raw_accuracy": 0.9434,
    "precision": 0.9434,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -382,6 +405,7 @@
   "absent_fields": {
    "n": 200,
    "accuracy": 0.975,
+   "raw_accuracy": 0.975,
    "precision": 0.9675,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -399,6 +423,7 @@
   "clean": {
    "n": 44,
    "accuracy": 0.9773,
+   "raw_accuracy": 0.9773,
    "precision": 0.9773,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -415,6 +440,7 @@
   "credit": {
    "n": 16,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -430,6 +456,7 @@
   "currency": {
    "n": 27,
    "accuracy": 0.9259,
+   "raw_accuracy": 0.9259,
    "precision": 0.9615,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -447,6 +474,7 @@
   "decoy_amounts": {
    "n": 60,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -463,6 +491,7 @@
   "freight": {
    "n": 18,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -478,6 +507,7 @@
   "handwritten": {
    "n": 26,
    "accuracy": 0.9615,
+   "raw_accuracy": 0.9615,
    "precision": 0.9615,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -494,6 +524,7 @@
   "hard": {
    "n": 44,
    "accuracy": 0.9773,
+   "raw_accuracy": 0.9773,
    "precision": 0.9767,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -511,6 +542,7 @@
   "image": {
    "n": 243,
    "accuracy": 0.9218,
+   "raw_accuracy": 0.9218,
    "precision": 0.922,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -529,6 +561,7 @@
   "locale:EU": {
    "n": 60,
    "accuracy": 0.95,
+   "raw_accuracy": 0.95,
    "precision": 0.9348,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -546,6 +579,7 @@
   "locale:ID": {
    "n": 60,
    "accuracy": 0.9667,
+   "raw_accuracy": 0.9667,
    "precision": 0.9592,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -563,6 +597,7 @@
   "locale:UK": {
    "n": 40,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -579,6 +614,7 @@
   "locale:US": {
    "n": 80,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -595,6 +631,7 @@
   "multipage": {
    "n": 125,
    "accuracy": 0.96,
+   "raw_accuracy": 0.96,
    "precision": 0.9561,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -612,6 +649,7 @@
   "photo": {
    "n": 72,
    "accuracy": 0.8472,
+   "raw_accuracy": 0.8472,
    "precision": 0.8714,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -629,6 +667,7 @@
   "scan": {
    "n": 45,
    "accuracy": 0.9556,
+   "raw_accuracy": 0.9556,
    "precision": 0.9556,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -645,6 +684,7 @@
   "scan:heavy": {
    "n": 40,
    "accuracy": 0.9,
+   "raw_accuracy": 0.9,
    "precision": 0.875,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -662,6 +702,7 @@
   "scan:light": {
    "n": 60,
    "accuracy": 0.9833,
+   "raw_accuracy": 0.9833,
    "precision": 0.9778,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -679,6 +720,7 @@
   "ship_to": {
    "n": 120,
    "accuracy": 0.9917,
+   "raw_accuracy": 0.9917,
    "precision": 0.9906,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -696,6 +738,7 @@
   "should_flag": {
    "n": 27,
    "accuracy": 0.963,
+   "raw_accuracy": 0.963,
    "precision": 0.963,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -712,6 +755,7 @@
   "source:ipp-benchmark-v1": {
    "n": 363,
    "accuracy": 0.9449,
+   "raw_accuracy": 0.9449,
    "precision": 0.9526,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -730,6 +774,7 @@
   "source:synthetic": {
    "n": 240,
    "accuracy": 0.9792,
+   "raw_accuracy": 0.9792,
    "precision": 0.9738,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -747,6 +792,7 @@
   "synthetic": {
    "n": 240,
    "accuracy": 0.9792,
+   "raw_accuracy": 0.9792,
    "precision": 0.9738,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -764,6 +810,7 @@
   "table_split": {
    "n": 80,
    "accuracy": 0.9625,
+   "raw_accuracy": 0.9625,
    "precision": 0.9565,
    "coverage": 1.0,
    "hallucination_rate": 0.0,
@@ -781,6 +828,7 @@
   "tax": {
    "n": 26,
    "accuracy": 1.0,
+   "raw_accuracy": 1.0,
    "precision": 1.0,
    "coverage": 1.0,
    "hallucination_rate": null,
@@ -964,6 +1012,7 @@
   "prompt_version": "v2",
   "image_profile": "optimized",
   "config_fingerprint": "daf01b1ce98b",
-  "mode": "local"
+  "mode": "local",
+  "rescored_at": "2026-10-09T13:13:40+00:00"
  }
 }

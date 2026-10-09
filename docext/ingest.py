@@ -1,8 +1,11 @@
 """Document ingest: PDF / image bytes -> list of page images (+ native text layer when present).
 
-The image profile is the main cost/latency lever (vision tokens scale with pixels):
-  * raw       : 200 DPI, color PNG, long side capped at 2400px      (baseline)
+Image profiles (IMAGE_PROFILE):
+  * raw       : 200 DPI, color PNG, long side capped at 2400px  (DEFAULT)
   * optimized : 150 DPI, grayscale + autocontrast, long side 1600px, JPEG q85, blank pages dropped
+Measured on Gemma 4 31B: "optimized" did not reduce input tokens (the model charges ~fixed tokens per image)
+and lost 6.4 pts of field accuracy on scans/photos (digit misreads 8/9, 0/8). Kept only as a documented,
+rejected experiment and for providers that bill by pixels.
 """
 from __future__ import annotations
 

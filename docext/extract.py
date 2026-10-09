@@ -63,6 +63,16 @@ def _is_null(v: Any) -> bool:
     return v is None or (isinstance(v, str) and v.strip().lower() in _NULLISH)
 
 
+def _money_from_evidence(val: Decimal, evidence: str) -> Decimal:
+    """The model normalizes '1.234.567' (IDR/EU thousands) to '1234.567' surprisingly often, which parses as
+    1234.57. The verbatim evidence is unambiguous: if it has the same digits but parses differently, trust it."""
+    ev = parse_money(evidence)
+    if ev is None or abs(ev) == val:
+        return val
+    digits = lambda x: re.sub(r"\D", "", str(x)).lstrip("0").rstrip("0")  # noqa: E731
+    return abs(ev) if digits(ev) == digits(val) and abs(ev) > val else val
+
+
 def type_fields(raw: RawInvoice) -> tuple[dict[str, Any], dict[str, str]]:
     """Raw model values -> typed values. Returns (typed, format_errors)."""
     typed: dict[str, Any] = {}
@@ -73,6 +83,8 @@ def type_fields(raw: RawInvoice) -> tuple[dict[str, Any], dict[str, str]]:
             typed[name] = None
             continue
         val = _PARSERS[kind](rf.value)
+        if kind == Kind.money and val is not None and rf.evidence:
+            val = _money_from_evidence(val, rf.evidence)
         if val is None:
             errors[name] = f"could not parse {rf.value!r} as {kind.value}"
         typed[name] = val
@@ -256,11 +268,14 @@ class Extractor:
             return d, RawInvoice.model_validate(_coerce_shape(d))
 
     def _account(self, r: LLMResponse, usage: Usage, meta: dict, stage: str) -> None:
-        usage.calls += 0 if r.cache_hit else 1
-        usage.input_tokens += r.input_tokens
-        usage.output_tokens += r.output_tokens
-        usage.cost_usd += r.cost_usd
-        usage.list_cost_usd += (r.input_tokens * self.s.price_in_per_mtok + r.output_tokens * self.s.price_out_per_mtok) / 1e6
+        # A cache hit is free: no call, no billed tokens. Its original token counts stay visible in meta.attempts.
+        if not r.cache_hit:
+            usage.calls += 1
+            usage.input_tokens += r.input_tokens
+            usage.output_tokens += r.output_tokens
+            usage.cost_usd += r.cost_usd
+            usage.list_cost_usd += (r.input_tokens * self.s.price_in_per_mtok
+                                    + r.output_tokens * self.s.price_out_per_mtok) / 1e6
         usage.cache_hit = usage.cache_hit or r.cache_hit
         meta["attempts"].append({"stage": stage, "model": r.model, "latency_ms": round(r.latency_ms, 1),
                                  "in": r.input_tokens, "out": r.output_tokens, "cache_hit": r.cache_hit,

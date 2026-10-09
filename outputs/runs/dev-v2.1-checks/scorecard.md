@@ -7,6 +7,7 @@ model `google/gemma-4-31b-it` | prompt `v2` | images `optimized` | config `daf01
 | metric | value | meaning |
 |---|---|---|
 | field accuracy | **95.9%** | labeled fields whose final answer is right (incl. correct 'absent') |
+| raw accuracy (before abstention) | 95.9% | extraction quality independent of the abstain threshold |
 | precision of emitted values | **96.0%** | of values we returned, share correct |
 | hallucination rate | **0.0%** | values returned for fields verified NOT on the page |
 | coverage | 100.0% | fields not abstained / failed |

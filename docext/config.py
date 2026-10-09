@@ -43,8 +43,10 @@ class Settings:
     max_concurrency: int = field(default_factory=lambda: int(_env("MAX_CONCURRENCY", "3")))
     timeout_s: float = field(default_factory=lambda: float(_env("LLM_TIMEOUT_S", "120")))
     max_retries: int = field(default_factory=lambda: int(_env("LLM_MAX_RETRIES", "4")))
-    image_profile: str = field(default_factory=lambda: _env("IMAGE_PROFILE", "optimized"))
-    output_format: str = field(default_factory=lambda: _env("OUTPUT_FORMAT", "verbose"))  # verbose | compact
+    # Defaults chosen by measurement (see README "Optimization"): compact output = 2.1x throughput, -52% cost at equal
+    # accuracy; downscaled images saved no tokens on Gemma and cost 6.4 pts on scans, so full-fidelity images stay.
+    image_profile: str = field(default_factory=lambda: _env("IMAGE_PROFILE", "raw"))
+    output_format: str = field(default_factory=lambda: _env("OUTPUT_FORMAT", "compact"))  # compact | verbose
     abstain_threshold: float = field(default_factory=lambda: float(_default_threshold()))
     cache_dir: str = field(default_factory=lambda: _env("CACHE_DIR", ".cache/llm"))
     cache_enabled: bool = field(default_factory=lambda: _env("CACHE_ENABLED", "1") == "1")

@@ -15,6 +15,11 @@ from rapidfuzz import fuzz
 from .normalize import date_readings, norm_ident, norm_text, parse_money
 from .schema import FIELD_SPECS, Kind
 
+_CURRENCY_SYMBOLS = {
+    "USD": ("$", "US$"), "NAD": ("N$", "$"), "ZAR": ("R ", "R\u00a0", "ZAR"), "ZMW": ("K ", "ZMW"), "GBP": ("£",),
+    "EUR": ("€",), "IDR": ("Rp",), "INR": ("₹", "Rs"), "JPY": ("¥",), "AUD": ("A$", "$"), "CAD": ("C$", "$"),
+    "SGD": ("S$", "$"), "MYR": ("RM",), "PHP": ("₱",), "THB": ("฿",), "KRW": ("₩",),
+}
 _NUM_RE = re.compile(r"[-(]?\d[\d.,' ]*\d|\d")
 
 
@@ -72,11 +77,12 @@ def ground_value(name: str, value: object, evidence: str | None, text: str) -> f
         is_credit = bool(re.search(r"credit|cr[eé]dito|gutschrift", text, re.I))
         return 1.0 if (value == "credit_note") == is_credit else 0.2
     if kind == Kind.currency:
+        # Currency is often printed only as a symbol and resolved from the vendor country (prompt rule 11),
+        # so a consistent symbol is full evidence; no symbol and no code is genuinely weak evidence.
         if str(value) in text.upper():
             return 1.0
-        sym = {"USD": "$", "EUR": "€", "GBP": "£", "IDR": "Rp", "INR": "₹", "JPY": "¥", "ZAR": "R",
-               "NAD": "N$", "ZMW": "K"}.get(str(value))
-        return 0.8 if sym and sym in text else 0.3  # currency is often implied; weak signal either way
+        syms = _CURRENCY_SYMBOLS.get(str(value), ())
+        return 1.0 if any(sym in text for sym in syms) else 0.3
     # free text: names/addresses. token_set handles reordering and OCR line breaks.
     v = norm_text(value)
     if not v:

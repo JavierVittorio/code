@@ -81,6 +81,8 @@ def field_metrics(rows: list[dict]) -> dict:
         "n": len(rows),
         # end-to-end: share of labeled fields where the final answer is right (value or correct "absent")
         "accuracy": _rate(c["correct"] + c["correct_absent"], len(rows)),
+        # extraction quality independent of the abstention operating point: would the raw answer have been right?
+        "raw_accuracy": _rate(c["correct"] + c["correct_absent"] + c["abstained_lost"], len(rows)),
         # of the values we actually emitted, how many were right (what a downstream system sees)
         "precision": _rate(c["correct"], emitted),
         "coverage": _rate(len(rows) - abstained - c["doc_failed"], len(rows)),

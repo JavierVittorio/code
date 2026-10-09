@@ -121,3 +121,16 @@ def test_numbers_never_serialize_to_exponent_form():
         n = parse_rate(raw) if "%" in str(raw) else parse_number(raw)
         assert str(n) == exp, (raw, n)
     assert str(parse_rate("20")) == "20"
+
+
+def test_money_trusts_evidence_when_model_misnormalizes_separators():
+    from docext.extract import _money_from_evidence
+    assert _money_from_evidence(D("156484.00"), "Rp 156.484.000") == D("156484000.00")
+    assert _money_from_evidence(D("1234.50"), "$1,234.50") == D("1234.50")
+    assert _money_from_evidence(D("100.00"), "Total 250.00") == D("100.00")  # different digits: keep model value
+
+
+def test_currency_grounding_uses_consistent_symbols():
+    assert ground_value("currency", "NAD", None, "TOTAL $ 1,200.00") == 1.0
+    assert ground_value("currency", "GBP", None, "Total £17,943.95") == 1.0
+    assert ground_value("currency", "EUR", None, "Total 12.00") == 0.3

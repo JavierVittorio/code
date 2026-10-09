@@ -21,6 +21,9 @@ from pathlib import Path
 import numpy as np
 
 GOOD = ("correct", "correct_absent")
+# Gate on extraction quality *before* abstention: a threshold change is an operating-point decision (reported
+# via coverage/precision warnings), not an extraction regression.
+RAW_GOOD = GOOD + ("abstained_lost",)
 
 
 def _load(run: Path) -> tuple[dict, list[dict]]:
@@ -53,15 +56,15 @@ def compare(base_dir: Path, cand_dir: Path, max_halluc_increase: float = 0.01, m
 
     ok_a, ok_b = defaultdict(list), defaultdict(list)
     for r in br:
-        ok_a[r["doc_id"]].append(int(r["outcome"] in GOOD))
+        ok_a[r["doc_id"]].append(int(r["outcome"] in RAW_GOOD))
     for r in cr:
-        ok_b[r["doc_id"]].append(int(r["outcome"] in GOOD))
+        ok_b[r["doc_id"]].append(int(r["outcome"] in RAW_GOOD))
     delta, lo, hi = paired_bootstrap(ok_a, ok_b)
 
     bh, ch = bc["headline"], cc["headline"]
     fails, warns = [], []
     if hi < 0:
-        fails.append(f"field accuracy dropped {100 * delta:+.1f} pts (95% CI {100 * lo:+.1f} .. {100 * hi:+.1f})")
+        fails.append(f"raw field accuracy dropped {100 * delta:+.1f} pts (95% CI {100 * lo:+.1f} .. {100 * hi:+.1f})")
     dh = (ch["hallucination_rate"] or 0) - (bh["hallucination_rate"] or 0)
     if dh > max_halluc_increase:
         fails.append(f"hallucination rate {100 * (bh['hallucination_rate'] or 0):.1f}% -> {100 * (ch['hallucination_rate'] or 0):.1f}%")
@@ -70,12 +73,13 @@ def compare(base_dir: Path, cand_dir: Path, max_halluc_increase: float = 0.01, m
         a, b = bc["by_field"][f], cc["by_field"].get(f)
         if not b:
             continue
-        d = (b["accuracy"] or 0) - (a["accuracy"] or 0)
+        ka = "raw_accuracy" if "raw_accuracy" in a and "raw_accuracy" in b else "accuracy"
+        d = (b[ka] or 0) - (a[ka] or 0)
         mark = ""
         if a["n"] >= 10 and d < -max_field_drop:
-            fails.append(f"field `{f}` accuracy {100 * a['accuracy']:.1f}% -> {100 * b['accuracy']:.1f}%")
+            fails.append(f"field `{f}` raw accuracy {100 * a[ka]:.1f}% -> {100 * b[ka]:.1f}%")
             mark = " **FAIL**"
-        field_lines.append(f"| {f} | {a['n']} | {_p(a['accuracy'])} | {_p(b['accuracy'])} | {100 * d:+.1f}{mark} | "
+        field_lines.append(f"| {f} | {a['n']} | {_p(a[ka])} | {_p(b[ka])} | {100 * d:+.1f}{mark} | "
                            f"{_p(a['hallucination_rate'])} -> {_p(b['hallucination_rate'])} |")
     if cc["ops"]["failed_docs"] > bc["ops"]["failed_docs"]:
         fails.append(f"failed docs {bc['ops']['failed_docs']} -> {cc['ops']['failed_docs']}")
@@ -84,6 +88,8 @@ def compare(base_dir: Path, cand_dir: Path, max_halluc_increase: float = 0.01, m
         warns.append(f"p95 latency {bo['latency_ms_p95']:.0f} -> {co['latency_ms_p95']:.0f} ms")
     if bo["list_cost_usd_per_1k_docs"] and co["list_cost_usd_per_1k_docs"] > 1.25 * bo["list_cost_usd_per_1k_docs"]:
         warns.append(f"cost/1k docs ${bo['list_cost_usd_per_1k_docs']} -> ${co['list_cost_usd_per_1k_docs']}")
+    if (ch["precision"] or 0) < (bh["precision"] or 0) - 0.01:
+        warns.append(f"precision of emitted values {_p(bh['precision'])} -> {_p(ch['precision'])}")
     if (ch["coverage"] or 0) < (bh["coverage"] or 0) - 0.05:
         warns.append(f"coverage {_p(bh['coverage'])} -> {_p(ch['coverage'])}")
 
@@ -106,7 +112,7 @@ def compare(base_dir: Path, cand_dir: Path, max_halluc_increase: float = 0.01, m
          "| | baseline | candidate |", "|---|---|---|",
          *[f"| {k} | `{bm.get(k)}` | `{cm.get(k)}` |" for k in ("model", "prompt_version", "image_profile", "config_fingerprint", "git_sha")],
          "", "| metric | baseline | candidate | delta |", "|---|---|---|---|"]
-    for k in ("accuracy", "precision", "hallucination_rate", "coverage", "miss_rate", "wrong_rate", "doc_all_fields_correct"):
+    for k in ("raw_accuracy", "accuracy", "precision", "hallucination_rate", "coverage", "miss_rate", "wrong_rate", "doc_all_fields_correct"):
         a, b = bh.get(k), ch.get(k)
         L.append(f"| {k} | {_p(a)} | {_p(b)} | {'' if a is None or b is None else f'{100 * (b - a):+.1f} pts'} |")
     L.append(f"| line-item row F1 | {_p(bc['line_items']['row_f1'])} | {_p(cc['line_items']['row_f1'])} | |")
@@ -119,9 +125,9 @@ def compare(base_dir: Path, cand_dir: Path, max_halluc_increase: float = 0.01, m
         L += ["## Failures", *[f"- {f}" for f in fails], ""]
     if warns:
         L += ["## Warnings", *[f"- {w}" for w in warns], ""]
-    L += ["## Per field", "", "| field | n | baseline | candidate | delta pts | hallucination |", "|---|---|---|---|---|---|",
+    L += ["## Per field", "", "| field | n | baseline raw acc | candidate raw acc | delta pts | hallucination |", "|---|---|---|---|---|---|",
           *field_lines, "",
-          f"## Flips: {len(flips_bad)} newly wrong, {len(flips_good)} newly right", ""]
+          f"## Flips (end-to-end outcome): {len(flips_bad)} newly not-correct, {len(flips_good)} newly right", ""]
     if flips_bad:
         L += ["| doc | field | new outcome | gt | candidate value | conf |", "|---|---|---|---|---|---|"]
         L += [f"| {r['doc_id']} | {r['field']} | {r['outcome']} | {r.get('gt')} | {r.get('raw')} | {r.get('confidence')} |"
