@@ -21,6 +21,7 @@ def _close(a: Decimal, b: Decimal) -> bool:
 def run_checks(v: dict[str, object], items: list[LineItem], format_errors: dict[str, str]) -> list[Check]:
     checks: list[Check] = []
     sub, disc, tax, total = v.get("subtotal"), v.get("discount"), v.get("tax_amount"), v.get("total")
+    chg = v.get("other_charges")
     rate = v.get("tax_rate")
 
     # 1. values that came back but could not be typed (e.g. '12/13/2024' as a day-first date)
@@ -49,15 +50,16 @@ def run_checks(v: dict[str, object], items: list[LineItem], format_errors: dict[
         checks.append(Check(name="line_item_rows", passed=not bad_rows, fields=["line_items"],
                             detail="" if not bad_rows else f"qty*unit_price != amount on rows {bad_rows[:10]}"))
 
-    # 4. subtotal - discount + tax == total
+    # 4. subtotal - discount + other charges + tax == total
     if sub is not None and total is not None:
-        calc = sub - (disc or 0) + (tax or 0)
+        calc = sub - (disc or 0) + (chg or 0) + (tax or 0)
         ok = _close(calc, total)
-        # if tax/discount were not extracted we cannot distinguish 'missing' from 'misread': pass=None
-        passed = ok if ok or (tax is not None or disc is not None) else None
+        # if no tax/discount/charges were extracted we can't tell 'missing' from 'misread': pass=None
+        passed = ok if ok or (tax is not None or disc is not None or chg is not None) else None
         checks.append(Check(name="total_arithmetic", passed=passed,
-                            fields=["subtotal", "discount", "tax_amount", "total"],
-                            detail="" if ok else f"subtotal {sub} - discount {disc or 0} + tax {tax or 0} = {calc} != total {total}"))
+                            fields=["subtotal", "discount", "other_charges", "tax_amount", "total"],
+                            detail="" if ok else f"subtotal {sub} - discount {disc or 0} + charges {chg or 0} + tax "
+                                                 f"{tax or 0} = {calc} != total {total}"))
 
     # 5. tax_rate consistent with tax_amount
     if rate is not None and tax is not None and sub is not None:

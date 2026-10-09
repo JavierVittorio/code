@@ -50,17 +50,19 @@ class LLMClient:
         # Models that rejected response_format once; don't send it again (per process).
         self._no_json_mode: set[str] = set()
 
-    async def chat(self, messages: list[dict], *, temperature: float = 0.0, max_tokens: int = 4096,
+    async def chat(self, messages: list[dict], *, temperature: float = 0.0, max_tokens: int = 16000,
                    use_cache: bool = True) -> LLMResponse:
         models = (self.s.model, *self.s.fallback_models)
         last_err: Exception | None = None
-        for model in models:
+        for i, model in enumerate(models):
+            # With a fallback available, don't spend minutes retrying a congested model: 1 retry, then move on.
+            retries = self.s.max_retries if i == len(models) - 1 else min(1, self.s.max_retries)
             payload = {"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
             key = payload_key(payload)
             if use_cache and (hit := self.cache.get(key)):
                 return LLMResponse(**{**hit, "cache_hit": True, "latency_ms": 0.0})
             try:
-                resp = await self._call_with_retries(payload)
+                resp = await self._call_with_retries(payload, retries)
             except LLMError as e:
                 last_err = e
                 log.warning("model %s failed (%s); trying fallback", model, e)
@@ -70,9 +72,9 @@ class LLMClient:
             return resp
         raise LLMError(f"all models failed: {last_err}")
 
-    async def _call_with_retries(self, payload: dict) -> LLMResponse:
+    async def _call_with_retries(self, payload: dict, max_retries: int) -> LLMResponse:
         delay = 2.0
-        for attempt in range(1, self.s.max_retries + 2):
+        for attempt in range(1, max_retries + 2):
             t0 = time.perf_counter()
             try:
                 kwargs = dict(payload)
@@ -86,8 +88,8 @@ class LLMClient:
                 raise LLMError(f"bad request: {e}") from e
             except (openai.RateLimitError, openai.APITimeoutError, openai.APIConnectionError,
                     openai.InternalServerError) as e:
-                if attempt > self.s.max_retries:
-                    raise LLMError(f"{type(e).__name__} after {attempt} attempts: {e}") from e
+                if attempt > max_retries:
+                    raise LLMError(f"{type(e).__name__} after {attempt} attempts: {str(e)[:300]}") from e
                 wait = _retry_after(e) or delay * (0.75 + random.random() / 2)
                 log.info("retryable %s (attempt %d); sleeping %.1fs", type(e).__name__, attempt, wait)
                 await asyncio.sleep(wait)
@@ -99,7 +101,7 @@ class LLMClient:
             latency = (time.perf_counter() - t0) * 1000
             if not r.choices:  # OpenRouter surfaces upstream errors as 200 with an error body
                 err = getattr(r, "error", None) or (r.model_extra or {}).get("error")
-                if attempt > self.s.max_retries:
+                if attempt > max_retries:
                     raise LLMError(f"empty choices: {err}")
                 await asyncio.sleep(delay)
                 delay = min(delay * 2, 60)

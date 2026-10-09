@@ -29,6 +29,7 @@
   "ship_to_address": null,
   "subtotal": "100342.20",
   "discount": null,
+  "other_charges": null,
   "tax_rate": "8.25",
   "tax_amount": "8278.23",
   "total": "108620.43"

@@ -1,0 +1,46 @@
+# docker compose up                 -> builds and serves the extraction API on :8000
+# docker compose run --rm eval      -> one-shot end-to-end eval against that API; scorecard -> ./outputs/runs/<name>/
+services:
+  api:
+    build:
+      context: .
+      args:
+        GIT_SHA: ${GIT_SHA:-unknown}
+    image: docext:latest
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Key may come from .env (LLM_API_KEY) or the host shell (OPENROUTER_API_KEY).
+      LLM_API_KEY: ${LLM_API_KEY:-${OPENROUTER_API_KEY:-}}
+      CACHE_DIR: /app/.cache/llm
+    ports:
+      - "8000:8000"
+    volumes:
+      - llm-cache:/app/.cache
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
+
+  eval:
+    image: docext:latest
+    profiles: ["eval"]  # not started by `up`; `docker compose run --rm eval` activates it
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      EVAL_API_URL: http://api:8000
+      EVAL_OUT_DIR: /app/outputs/runs
+      EVAL_RUN_NAME: ${EVAL_RUN_NAME:-}
+      EVAL_CONCURRENCY: ${EVAL_CONCURRENCY:-4}
+      GIT_SHA: ${GIT_SHA:-unknown}
+    volumes:
+      - ./outputs:/app/outputs
+    command: ["python", "-m", "eval.run_eval"]
+
+volumes:
+  llm-cache:

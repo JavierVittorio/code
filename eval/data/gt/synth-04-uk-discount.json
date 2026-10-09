@@ -30,6 +30,7 @@
   "ship_to_address": "77 NE Columbia Blvd, Portland, OR 97211, USA",
   "subtotal": "39665.55",
   "discount": "1983.28",
+  "other_charges": null,
   "tax_rate": "20",
   "tax_amount": "7536.45",
   "total": "45218.72"

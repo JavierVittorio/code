@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import base64
 import io
+import threading
 from dataclasses import dataclass, field
 
 import pypdfium2 as pdfium
@@ -17,6 +18,11 @@ PROFILES = {
     "raw": dict(dpi=200, max_side=2400, gray=False, fmt="PNG", quality=None, drop_blank=False),
     "optimized": dict(dpi=150, max_side=1600, gray=True, fmt="JPEG", quality=85, drop_blank=True),
 }
+
+
+# PDFium is not thread-safe: concurrent use from worker threads segfaults the whole process (found by the
+# batch eval). Rendering is ~100ms/page, so serializing it costs little; LLM calls stay concurrent.
+_PDFIUM_LOCK = threading.Lock()
 
 
 @dataclass
@@ -70,15 +76,16 @@ def load_pages(data: bytes, filename: str = "", profile: str = "optimized", max_
     p = PROFILES[profile]
     pages: list[Page] = []
     if sniff_kind(data, filename) == "pdf":
-        pdf = pdfium.PdfDocument(data)
-        try:
-            for i in range(len(pdf)):
-                page = pdf[i]
-                img = page.render(scale=p["dpi"] / 72).to_pil()
-                text = page.get_textpage().get_text_range() or ""
-                pages.append(Page(index=i + 1, image=img, text_layer=text.strip()))
-        finally:
-            pdf.close()
+        with _PDFIUM_LOCK:
+            pdf = pdfium.PdfDocument(data)
+            try:
+                for i in range(len(pdf)):
+                    page = pdf[i]
+                    img = page.render(scale=p["dpi"] / 72).to_pil()
+                    text = page.get_textpage().get_text_range() or ""
+                    pages.append(Page(index=i + 1, image=img, text_layer=text.strip()))
+            finally:
+                pdf.close()
     else:
         im = Image.open(io.BytesIO(data))
         for i in range(getattr(im, "n_frames", 1)):  # multi-frame TIFF = multi-page scan

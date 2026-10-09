@@ -46,7 +46,9 @@ FIELD_SPECS: dict[str, tuple[Kind, str]] = {
     "ship_to_name": (Kind.text, "Ship-to / deliver-to party, only if a separate ship-to block exists"),
     "ship_to_address": (Kind.text, "Ship-to address, only if a separate ship-to block exists"),
     "subtotal": (Kind.money, "Sum of line items before tax (and before invoice-level discount/charges)"),
-    "discount": (Kind.money, "Total discount amount (positive number)"),
+    "discount": (Kind.money, "Total invoice-level discount amount (positive number)"),
+    "other_charges": (Kind.money, "Sum of non-tax charges in the totals block: shipping, freight, delivery, handling, "
+                                  "service fees, surcharges. Null if none printed"),
     "tax_rate": (Kind.rate, "Tax rate in percent (10 for 10%). Only if printed"),
     "tax_amount": (Kind.money, "Total tax amount"),
     "total": (Kind.money, "Final amount due / grand total"),

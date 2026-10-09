@@ -6,6 +6,7 @@ import json
 import os
 from dataclasses import asdict, dataclass, field
 from functools import lru_cache
+from pathlib import Path
 
 try:  # optional: local dev convenience; in Docker the env comes from compose
     from dotenv import load_dotenv
@@ -19,10 +20,20 @@ def _env(name: str, default: str) -> str:
     return os.environ.get(name, default)
 
 
+def _default_threshold() -> str:
+    """Explicit env wins; else the threshold chosen by tools/calibrate.py; else 0.5."""
+    if "ABSTAIN_THRESHOLD" in os.environ:
+        return os.environ["ABSTAIN_THRESHOLD"]
+    try:
+        return str(json.loads((Path(__file__).with_name("calibration.json")).read_text())["abstain_threshold"])
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        return "0.5"
+
+
 @dataclass(frozen=True)
 class Settings:
     base_url: str = field(default_factory=lambda: _env("LLM_BASE_URL", "https://openrouter.ai/api/v1"))
-    api_key: str = field(default_factory=lambda: _env("LLM_API_KEY", ""), repr=False)
+    api_key: str = field(default_factory=lambda: _env("LLM_API_KEY", "") or _env("OPENROUTER_API_KEY", ""), repr=False)
     model: str = field(default_factory=lambda: _env("LLM_MODEL", "google/gemma-4-31b-it:free"))
     fallback_models: tuple[str, ...] = field(
         default_factory=lambda: tuple(m.strip() for m in _env("LLM_FALLBACK_MODELS", "").split(",") if m.strip())
@@ -33,7 +44,7 @@ class Settings:
     timeout_s: float = field(default_factory=lambda: float(_env("LLM_TIMEOUT_S", "120")))
     max_retries: int = field(default_factory=lambda: int(_env("LLM_MAX_RETRIES", "4")))
     image_profile: str = field(default_factory=lambda: _env("IMAGE_PROFILE", "optimized"))
-    abstain_threshold: float = field(default_factory=lambda: float(_env("ABSTAIN_THRESHOLD", "0.5")))
+    abstain_threshold: float = field(default_factory=lambda: float(_default_threshold()))
     cache_dir: str = field(default_factory=lambda: _env("CACHE_DIR", ".cache/llm"))
     cache_enabled: bool = field(default_factory=lambda: _env("CACHE_ENABLED", "1") == "1")
     max_pages: int = field(default_factory=lambda: int(_env("MAX_PAGES", "8")))

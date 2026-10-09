@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "python tools/hooks/test_on_edit.py", "timeout": 300 }
+        ]
+      }
+    ]
+  }
+}

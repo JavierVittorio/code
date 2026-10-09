@@ -105,12 +105,17 @@ def score_line_items(pred: list[dict], gt: list[dict], cells: list[str]) -> Item
     for i, g in enumerate(gt):
         for j, p in enumerate(pred):
             s = fuzz.token_sort_ratio(norm_text(p.get("description")), norm_text(g.get("description"))) / 100
-            s += 0.5 * _cell_ok("amount", p.get("amount"), g.get("amount"), g.get("alt_amounts"))
+            # agreement on the other labeled cells + row-order proximity break ties between repeated
+            # descriptions (otherwise identical "Freight" rows get cross-matched and score as cell errors)
+            for c in cells:
+                if c != "description":
+                    s += 0.3 * _cell_ok(c, p.get(c), g.get(c), g.get("alt_amounts") if c == "amount" else None)
+            s += 0.2 * (1 - abs(i / max(n - 1, 1) - j / max(m - 1, 1)))
             sim[i, j] = s
     rows, cols = linear_sum_assignment(-sim)
     matched = exact = 0
     for i, j in zip(rows, cols):
-        if sim[i, j] < 0.6:  # too dissimilar to be the same row: count as unmatched
+        if sim[i, j] < 0.7:  # too dissimilar to be the same row: count as unmatched
             continue
         matched += 1
         ok_all = True

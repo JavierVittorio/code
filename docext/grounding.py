@@ -12,7 +12,7 @@ from decimal import Decimal
 
 from rapidfuzz import fuzz
 
-from .normalize import norm_ident, norm_text, parse_date, parse_money
+from .normalize import date_readings, norm_ident, norm_text, parse_money
 from .schema import FIELD_SPECS, Kind
 
 _NUM_RE = re.compile(r"[-(]?\d[\d.,' ]*\d|\d")
@@ -55,8 +55,9 @@ def ground_value(name: str, value: object, evidence: str | None, text: str) -> f
     if kind == Kind.date:
         candidates = _date_strings(value) + ([evidence] if evidence else [])
         best = max(fuzz.partial_ratio(norm_text(c), hay) for c in candidates) / 100
-        if evidence and parse_date(evidence) not in (None, value):
-            best *= 0.5  # evidence says a different date than the value -> suspicious
+        readings = date_readings(evidence) if evidence else set()
+        if readings and value not in readings:
+            best *= 0.5  # evidence cannot mean this date under any day/month order -> suspicious
         return best
     if kind == Kind.ident:
         v = norm_ident(value)

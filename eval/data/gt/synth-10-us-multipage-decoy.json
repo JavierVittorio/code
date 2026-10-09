@@ -35,6 +35,7 @@
   "ship_to_address": "Unit 9, Lulsgate Business Park, Bristol BS48 3DZ, United Kingdom",
   "subtotal": "470388.85",
   "discount": null,
+  "other_charges": null,
   "tax_rate": "8.25",
   "tax_amount": "38807.08",
   "total": "509195.93"

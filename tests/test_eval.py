@@ -100,3 +100,11 @@ def test_compare_gate(tmp_path):
     assert compare(base, same)[1] is True
     report, passed = compare(base, worse)
     assert passed is False and "hallucination rate" in report and "field accuracy dropped" in report
+
+
+def test_line_items_repeated_descriptions_align_by_cells_and_order():
+    gt = [{"description": "Freight", "quantity": q, "unit_price": "10", "amount": str(10 * q)} for q in (1, 2, 3, 4)]
+    pred = [dict(r) for r in gt]
+    pred.insert(2, {"description": "Freight", "quantity": "9", "unit_price": "1", "amount": "9"})  # spurious row
+    s = score_line_items(pred, gt, ["description", "quantity", "unit_price", "amount"])
+    assert s.exact_rows == 4 and s.n_pred == 5

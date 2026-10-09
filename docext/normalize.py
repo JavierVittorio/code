@@ -58,14 +58,20 @@ def parse_money(v: object) -> Decimal | None:
     return -d if neg else d
 
 
+def _plain(d: Decimal) -> Decimal:
+    """Strip trailing zeros WITHOUT scientific notation: Decimal('20.00') -> 20 (normalize() gives '2E+1',
+    which re-parses as 21 - a real bug found by eval triage)."""
+    return d.quantize(Decimal(1)) if d == d.to_integral_value() else d.normalize()
+
+
 def parse_number(v: object) -> Decimal | None:
     """Like parse_money but keeps precision (quantities, rates)."""
-    m = parse_money(v)
-    if m is None:
-        return None
+    if isinstance(v, str) and re.fullmatch(r"\s*-?\d+(\.\d+)?[eE][+-]?\d+\s*", v):
+        return _plain(Decimal(v.strip()))  # tolerate already-serialized exponent form
     if isinstance(v, (int, float)):
-        return Decimal(str(v)).normalize()
-    return m.normalize() if m == m.to_integral() else m
+        return _plain(Decimal(str(v)))
+    m = parse_money(v)
+    return None if m is None else _plain(m)
 
 
 def parse_rate(v: object) -> Decimal | None:
@@ -75,7 +81,7 @@ def parse_rate(v: object) -> Decimal | None:
         return None
     if Decimal(0) < n < Decimal(1) and "%" not in str(v):
         n = n * 100
-    return n.normalize()
+    return _plain(n)
 
 
 _DATE_FORMATS = [
@@ -101,6 +107,24 @@ def parse_date(v: object) -> date | None:
         except ValueError:
             continue
     return None
+
+
+def date_readings(v: object) -> set[date]:
+    """Every date a printed string could mean (03/05/2024 -> {3 May, 5 Mar}). Used to judge evidence."""
+    s = str(v or "")
+    out = set()
+    for m in re.finditer(r"(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{2,4})", s):
+        a, b, y = int(m[1]), int(m[2]), int(m[3])
+        y += 2000 if y < 100 else 0
+        for d_, m_ in ((a, b), (b, a)):
+            try:
+                out.add(date(y, m_, d_))
+            except ValueError:
+                pass
+    p = parse_date(s)
+    if p:
+        out.add(p)
+    return out
 
 
 def parse_currency(v: object) -> str | None:

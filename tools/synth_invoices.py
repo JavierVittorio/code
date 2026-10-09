@@ -17,6 +17,7 @@ import io
 import json
 import random
 from dataclasses import dataclass
+import time
 from datetime import date, timedelta
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
@@ -111,7 +112,7 @@ def build_invoice(spec: Spec, rng: random.Random) -> dict:
         "vendor_name": v[0], "vendor_address": v[1], "vendor_tax_id": v[2],
         "bill_to_name": c[0], "bill_to_address": c[1],
         "ship_to_name": None, "ship_to_address": None,
-        "subtotal": subtotal, "discount": discount, "tax_rate": L["rate"], "tax_amount": tax, "total": total,
+        "subtotal": subtotal, "discount": discount, "other_charges": None, "tax_rate": L["rate"], "tax_amount": tax, "total": total,
     }
     if spec.ship_to:
         w = rng.choice(WAREHOUSES)
@@ -128,7 +129,7 @@ def render_pdf(spec: Spec, inv: dict) -> bytes:
     m = L["fmt_money"]
     W, H = L["page"]
     buf = io.BytesIO()
-    cv = canvas.Canvas(buf, pagesize=L["page"])
+    cv = canvas.Canvas(buf, pagesize=L["page"], invariant=1)  # deterministic bytes -> stable dataset hash
     rows_first, rows_next = (14, 30) if spec.layout != "compact" else (18, 36)
     pages = [items[:rows_first]]
     rest = items[rows_first:]
@@ -286,7 +287,8 @@ def degrade(pdf: bytes, level: str, rng: random.Random) -> bytes:
         imgs.append(Image.open(io.BytesIO(b.getvalue())).convert("RGB"))
     doc.close()
     out = io.BytesIO()
-    imgs[0].save(out, "PDF", save_all=True, append_images=imgs[1:], resolution=150)
+    fixed = time.strptime("2025-01-01", "%Y-%m-%d")  # pinned metadata -> byte-identical output across runs
+    imgs[0].save(out, "PDF", save_all=True, append_images=imgs[1:], resolution=150, creationDate=fixed, modDate=fixed)
     return out.getvalue()
 
 

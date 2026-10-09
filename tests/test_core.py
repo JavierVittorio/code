@@ -93,3 +93,31 @@ def test_grounding():
     assert ground_value("invoice_number", "INV-2041", None, text) == 1.0
     assert ground_value("vendor_name", "ACME Corp", None, text) > 0.9
     assert ground_value("invoice_date", date(2024, 5, 3), "03/05/2024", text) > 0.9
+
+
+def test_date_grounding_accepts_ambiguous_us_evidence():
+    from docext.normalize import date_readings
+    assert date_readings("Date: 03/05/2024") == {date(2024, 3, 5), date(2024, 5, 3)}
+    assert ground_value("invoice_date", date(2024, 3, 5), "03/05/2024", "Date: 03/05/2024") == 1.0
+    assert ground_value("invoice_date", date(2024, 3, 7), "03/05/2024", "Date: 03/05/2024") < 0.6
+
+
+def test_concurrent_pdf_ingest_is_safe():
+    """Regression: pdfium segfaulted under concurrent to_thread() rendering in batch mode."""
+    from concurrent.futures import ThreadPoolExecutor
+    from pathlib import Path
+
+    from docext.ingest import load_pages
+    pdfs = sorted(Path("eval/data/docs/synth").glob("*.pdf"))[:6]
+    with ThreadPoolExecutor(6) as ex:
+        out = list(ex.map(lambda p: load_pages(p.read_bytes(), p.name), pdfs * 2))
+    assert all(len(pages) >= 1 for pages in out)
+
+
+def test_numbers_never_serialize_to_exponent_form():
+    """Regression (found by eval triage): Decimal.normalize() gave '2E+1' for 20, re-parsed as 21."""
+    from docext.normalize import parse_number
+    for raw, exp in (("20", "20"), ("10", "10"), (10, "10"), ("2E+1", "20"), ("1.50", "1.5"), ("12.5%", "12.5")):
+        n = parse_rate(raw) if "%" in str(raw) else parse_number(raw)
+        assert str(n) == exp, (raw, n)
+    assert str(parse_rate("20")) == "20"
