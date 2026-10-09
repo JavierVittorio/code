@@ -1,0 +1,60 @@
+{
+ "doc_id": "pt-20210507_203411",
+ "file": "docs/pt/20210507_203411.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: COPIMATICA - Informatica e Copia, Servicos e Sistemas, Lda",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "COPIMATICA - Informatica e Copia, Servicos e Sistemas, Lda",
+  "vendor_tax_id": "502431377",
+  "invoice_number": "FTR 2/72069",
+  "invoice_date": "2017-11-27",
+  "bill_to_name": "FLIKEHOME LDA",
+  "subtotal": "19.20",
+  "tax_rate": "23",
+  "tax_amount": "4.41",
+  "total": "23.61"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Copimatica"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "CARTOLINA IRIS A3(WHITE)",
+   "quantity": 6,
+   "unit_price": "0.45",
+   "amount": "2.70"
+  },
+  {
+   "description": "CARTOLINA IRIS A4(WHITE)",
+   "quantity": 1,
+   "unit_price": "0.37",
+   "amount": "0.37"
+  },
+  {
+   "description": "Fotocopias/Impressoes Cores A4",
+   "quantity": 26,
+   "unit_price": "0.79",
+   "amount": "20.54"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "decoy: 'Total Iliquido 23.61' (gross) printed above the net base 19.20."
+}

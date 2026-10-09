@@ -1,0 +1,49 @@
+{
+ "doc_id": "pt-20210322_161042",
+ "file": "docs/pt/20210322_161042.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: WORTEN Equipamentos para o Lar SA",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "WORTEN Equipamentos para o Lar SA",
+  "vendor_tax_id": "503630330",
+  "invoice_number": "FT 8TA109/012049",
+  "invoice_date": "2019-07-21",
+  "bill_to_name": "FLIKEHOME ALGARVE LDA",
+  "subtotal": "8.12",
+  "tax_rate": "23",
+  "tax_amount": "1.87",
+  "total": "9.99"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Worten"
+  ],
+  "vendor_tax_id": [
+   "PT503630330"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "CABO MICRO-USB 2.0 GOODIS",
+   "quantity": null,
+   "unit_price": null,
+   "amount": "9.99"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

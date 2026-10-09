@@ -3,16 +3,19 @@
 A VLM-based extraction service for messy, multi-page invoices, and an evaluation harness that shows
 **how often it is right, how it fails, and when it knows it is unsure**.
 
-| final config (`final-v3.1`, 53 docs, 603 labeled fields) | |
-|---|---|
-| raw field accuracy (before abstention) | **95.4%** |
-| precision of returned values @ coverage | **97.5% @ 96.0%** (the rest abstained) |
-| hallucination rate (value returned for a field verified absent) | **0.0%** (0/50) |
-| line items: row F1 / cell accuracy (amount) | 92.9% / 97.0% |
-| auto-approved docs that are fully correct | **91.2%** (v1 baseline: 61.9%) |
-| inconsistent invoices routed to review | 3/3 |
-| confidence AUROC (test split): fused vs model self-report | **0.93 vs 0.56** |
-| p50 latency / throughput / billed cost (uncached, 4 concurrent) | 12.6 s / 10.6 docs/min / $0.0026 per doc |
+| final config (`final-v4-real`, 70 docs, 785 labeled fields) | all docs | 17 real invoice photos only |
+|---|---|---|
+| raw field accuracy (before abstention) | **93.2%** | 83.0% |
+| precision of returned values @ coverage | **96.6% @ 93.9%** | 90.5% @ 85.7% |
+| hallucination rate (value returned for a field verified absent) | **0.0%** (0/51) | 0.0% |
+| line items: row F1 / cell accuracy (amount) | 91.7% / 97.4% | |
+| auto-approved docs that are fully correct | 80.5% | |
+| inconsistent invoices routed to review | 3/3 | |
+| confidence AUROC (test split): fused vs model self-report | **0.87 vs 0.67** | |
+| p50 latency / billed cost (uncached, 4 concurrent) | 10.8 s / $0.0018 per doc | |
+
+The real photos are the hardest slice by a wide margin: faded thermal paper, Portuguese layouts, and
+legal-entity vs trade-name vendors. They are reported separately and not averaged away.
 
 Model: `google/gemma-4-31b-it` via OpenRouter (any OpenAI-compatible endpoint works).
 
@@ -33,7 +36,7 @@ curl localhost:8000/metrics                                           # tokens, 
 ```
 
 Without Docker: `pip install -r requirements-dev.txt`, `uvicorn api.app:app`, `python -m eval.run_eval`
-(`--local` runs in-process). Tests: `pytest` (50 tests, no network).
+(`--local` runs in-process). Tests: `pytest` (52 tests, no network).
 
 | command | what it does |
 |---|---|
@@ -42,15 +45,16 @@ Without Docker: `pip install -r requirements-dev.txt`, `uvicorn api.app:app`, `p
 | `python -m eval.compare runs/A runs/B` | regression report; **exit 1** on regression |
 | `python -m tools.triage runs/X [--doc ID [--page N]]` | failures grouped by kind; GT-vs-pred diff; render page |
 | `python -m tools.calibrate runs/X [--write]` | fit/choose confidence fusion + abstain threshold on the calib split |
-| `python -m tools.import_ipp` / `python -m tools.synth_invoices` | rebuild the dataset |
+| `python -m tools.import_ipp` / `import_pt` / `synth_invoices` | rebuild the dataset |
 
 ---
 
-## Dataset (`eval/data/`, 53 documents, 74 pages)
+## Dataset (`eval/data/`, 70 documents, 91 pages)
 
 | source | docs | what it covers | label provenance |
 |---|---|---|---|
 | [Invoice Extraction Benchmark v1](https://huggingface.co/datasets/drew-ipp/invoice-extraction-benchmark) (CC-BY-4.0), stratified subset | 41 | phone photos (blur, perspective, crumple, crop, low light), scans (fax, noise, stamps, punch holes), handwritten invoice books, 2-8 page invoices with carried-forward rows, credit notes (brackets/CR/minus), VAT-inclusive & Sage layouts, dual-currency payable boxes, missing invoice number, deliberately non-reconciling totals | generator answer keys; **only the keys the benchmark marks as scored** are imported |
+| **real invoice photos**: [InvoicesReceiptsPT](https://huggingface.co/datasets/Francisco-Cruz/InvoicesReceiptsPT) (Apache-2.0) | 17 | real phone photos of Portuguese *faturas* from 17 different vendors (electronics, furniture, post office, hardware, fuel, auto, print shop...): faded thermal paper, curl, staples, punch holes, handwritten ticks, DD/MM dates, VAT-inclusive pricing, legal entity vs trade name, decoy totals ("Total Ilíquido", "S/ Desconto") | source human transcriptions, **each verified against the photo**; extra fields annotated from the photo; 3 source-label errors corrected (below) |
 | synthetic (`tools/synth_invoices.py`) | 12 | the **full schema** (parties incl. ship-to, PO, tax IDs, terms, discount, rate, qty/unit price), US/EU/ID/UK number + date formats, tables split across pages, decoy "previous balance" amounts, **planted absent fields** (hallucination probes), scan degradation | exact by construction, deterministic bytes |
 
 Ground-truth conventions are designed so the scorecard can be trusted:
@@ -58,16 +62,20 @@ Ground-truth conventions are designed so the scorecard can be trusted:
 - **Labeled vs unlabeled.** A key in `fields` is labeled. `null` means *verified not on the document*
   (a hallucination probe). A missing key means *not labeled* and is not scored, so a correct extraction
   is never counted as a hallucination because a label is missing.
-- **Every GT change is audited.** `eval/data/GT_CHANGELOG.md` records audits too. All three triage audits
-  so far confirmed the labels against the rendered page; no label has been changed.
-- **Split:** a hash of `doc_id` puts 23 docs in `calib` (used to choose the confidence operating point)
-  and 30 in `test`.
+- **Every GT change is audited** in `eval/data/GT_CHANGELOG.md`. Verifying the real-photo labels found
+  **3 human-label errors in the source dataset**. All three are seller tax IDs, and each corrected value
+  is the one printed on the photo *and* the only reading that passes the Portuguese NIF mod-11 check
+  digit (e.g. IKEA `505116054` ✗ → `505416654` ✓). A fourth label was the billing-software maker's NIF,
+  not the seller's, so it is left unlabeled. Benchmark and synthetic labels have needed no changes.
+- **Privacy:** one source receipt was excluded because it carried a private individual's name and home
+  address.
+- **Split:** a hash of `doc_id` puts 30 docs in `calib` (used to choose the confidence operating point)
+  and 40 in `test`.
 - **Dataset hash:** GT content + document bytes. `compare` refuses to compare runs on different data.
 - `MANIFEST.csv` lists source, split, tags, labeled/absent counts and provenance per document.
 
-**Gap I'd close first:** there are no scans of my own yet. The pipeline needs nothing new to add them:
-drop the file in `eval/data/docs/own/`, write a GT JSON (the synthetic GTs are a full-schema template),
-then re-run.
+Adding more documents (for example, your own scans) needs no code changes. Put the file in
+`eval/data/docs/<source>/`, add a GT JSON (the synthetic GTs are a full-schema template), and re-run.
 
 ## Schema
 
@@ -167,14 +175,30 @@ re-gated:
 | `opt-compact-output` | **optimization**: compact output | 95.7% | 96.2% | 0.0% | 73.6% | PASS (−0.2, CI −1.2..+1.0) |
 | `final-v3` | + full-fidelity images, prompt v3, fitted threshold 0.93 | 95.0% | 98.2% | 0.0% | 56.6% | **FAIL** (see above) |
 | `final-v3.1` | + evidence-based separator repair, currency grounding, threshold 0.95 by cost rule | **95.4%** | **97.5%** | **0.0%** | 66.0%* | PASS |
+| *dataset grows to 70 docs (+17 real invoice photos): new dataset hash, new baseline* | | | | | | |
+| `final-v3.2-real` | v3.1 + NIF check-digit validator, on 70 docs | 91.3% | 95.5% | 0.0% | 51.4% | (new baseline) |
+| `final-v4-real` | prompt v4 from triage of the real photos: complete series prefix in invoice numbers, seller-vs-customer tax ID, VAT rate from the tax summary | **93.2%** | **96.6%** | **0.0%** | 54.3% | PASS, **+1.9 (CI +0.6..+3.4)** |
 
 \* Fewer docs are "fully right" end-to-end because an abstained field counts as not right. By design, those
-documents go to review: **91.2% of the auto-approved documents are fully correct**, against 61.9% for v1.
+documents go to review. On the 53-doc set, 91.2% of auto-approved documents were fully correct (v1: 61.9%);
+on the 70-doc set with real photos it is 80.5%.
 
-Where it still fails (final, raw accuracy by slice): photos 84.7%, handwritten 88.5%, heavy scans 87.5%,
-IDR locale 90.0%, against 98-100% on clean, multipage, credit-note and tax-layout slices. The remaining
-errors are mostly digit-level misreads on degraded images (`IN0099973` → `IN009973`). Those are the right
-targets for abstention, and the confidence score now ranks them (AUROC 0.93).
+**Where it still fails** (final, raw accuracy by slice):
+
+| slice | raw acc. |
+|---|---|
+| clean digital, multipage, credit notes, tax layouts, scans | 98-100% |
+| synthetic (full schema) | 98.3% |
+| handwritten invoice books | 92.3% |
+| benchmark phone photos | 84.7% |
+| **real Portuguese invoice photos** | **83.0%** |
+
+On real photos the remaining errors are:
+- **Digit misreads on faded thermal paper:** `0126862` → `012682`, `FLIKEHOME` → `TLIKENHOME`. Wherever a
+  checksum exists (the NIF check digit) these become abstentions; elsewhere they mostly slip through at
+  high confidence.
+- **Choosing the wrong one of several printed numbers:** an operation number instead of the invoice
+  number, the customer's NIF instead of the seller's. Prompt v4 fixed most of these.
 
 ## Optimization (measured, with one rejected)
 
@@ -214,6 +238,14 @@ the real fix.
 
 The threshold (0.95) is chosen on calib by an explicit cost rule: a silently wrong value costs five
 manual checks. Both numbers live in `docext/calibration.json` and are reported in every result's `meta`.
+
+**It does not transfer to real photos yet.** On the 17 real thermal-paper photos, abstention precision is
+only 35%: it throws away more correct values than wrong ones. OCR grounding is weak on faded print even
+when the model read it correctly, and the weights were chosen on benchmark and synthetic documents.
+Overall test AUROC drops from 0.93 (53 docs) to 0.87 (70 docs). I did not re-tune on these documents,
+because they are also the test data. The fix is per-source calibration once there are enough labeled
+real documents, plus checksum-style validators wherever an ID format has one (the NIF check digit
+already turns misread tax IDs into abstentions).
 
 ## Production notes
 
@@ -269,9 +301,10 @@ those steps.
 
 ## What I'd do with more time
 
-1. **Own scans and more labeled errors.** Add 20-30 real scanned invoices, including multi-page and
-   non-English ones, and double-label a sample to measure annotator agreement. More errors would make
-   calibration fitting stable.
+1. **More real documents, double-labeled.** The 17 real photos are single-page receipts-style invoices.
+   Add real multi-page A4 invoices from another country and double-label a sample to measure annotator
+   agreement: 3 of the source labels I verified were wrong. More labeled errors would also make
+   calibration fitting stable and allow per-source calibration.
 2. **Hybrid input for born-digital PDFs.** Send the text layer alongside the image. It would remove most
    digit misreads on digital PDFs, and the text-layer check already proves the gap exists.
 3. **Per-field-kind confidence features** (e.g. OCR grounding is unreliable on handwriting), and

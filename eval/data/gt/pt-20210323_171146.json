@@ -1,0 +1,42 @@
+{
+ "doc_id": "pt-20210323_171146",
+ "file": "docs/pt/20210323_171146.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: GESPOST Gestao e Administracao de Postos de Abastecimento Unipessoal Lda",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "GESPOST Gestao e Administracao de Postos de Abastecimento Unipessoal Lda",
+  "vendor_tax_id": "503769959",
+  "invoice_number": "FR 4371TPV3/390007838",
+  "invoice_date": "2019-07-15",
+  "bill_to_name": "FLIKEHOME ALGARVE, LDA",
+  "subtotal": "25.63",
+  "tax_rate": "23",
+  "tax_amount": "5.90",
+  "total": "31.53"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Repsol",
+   "ES Repsol Portimao"
+  ]
+ },
+ "line_items": null,
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "fuel station run by an operator company; card-terminal slip with a second (zero) NIF below."
+}

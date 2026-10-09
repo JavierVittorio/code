@@ -1,0 +1,68 @@
+{
+ "doc_id": "pt-20210323_173242",
+ "file": "docs/pt/20210323_173242.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt",
+  "label_corrected"
+ ],
+ "description": "Real Portuguese invoice photo: IKEA Portugal, Moveis e Decoracao Lda",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "IKEA Portugal, Moveis e Decoracao Lda",
+  "vendor_tax_id": "505416654",
+  "invoice_number": "FAC 45300720190064/735",
+  "invoice_date": "2019-07-16",
+  "bill_to_name": "FLIKEHOME ALGARVE, LDA",
+  "subtotal": "96.49",
+  "tax_rate": "23",
+  "tax_amount": "22.19",
+  "total": "118.68"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "IKEA",
+   "IKEA Loule"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "GOKART prot clch 160x200",
+   "quantity": 2,
+   "unit_price": "12.99",
+   "amount": "25.98"
+  },
+  {
+   "description": "GOKART prot clch 90x200",
+   "quantity": 4,
+   "unit_price": "8.00",
+   "amount": "32.00"
+  },
+  {
+   "description": "INDIRA NN colcha 150x250 branco",
+   "quantity": 4,
+   "unit_price": "15.00",
+   "amount": "60.00"
+  },
+  {
+   "description": "FRAKTA saco, grd 71 l azul",
+   "quantity": null,
+   "unit_price": null,
+   "amount": "0.70"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "dataset nif_seller 505116054 fails the NIF checksum; photo shows 505416654 (valid)."
+}

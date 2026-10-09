@@ -1,0 +1,94 @@
+{
+ "doc_id": "pt-20210322_161246",
+ "file": "docs/pt/20210322_161246.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: INTERMARCHE LAGOA PO",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "INTERMARCHE LAGOA PO",
+  "vendor_tax_id": "259318329",
+  "invoice_number": "FT F/0000021",
+  "invoice_date": "2019-07-05",
+  "bill_to_name": "Flakehome Algarve",
+  "discount": "56.05",
+  "tax_rate": "23",
+  "tax_amount": "41.92",
+  "total": "224.20"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Intermarche",
+   "Bruno Filipe Carvalho Morgado"
+  ],
+  "vendor_tax_id": [
+   "PT259318329"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "CHAVE PONTOS",
+   "quantity": 7,
+   "unit_price": "14.90",
+   "amount": "83.44"
+  },
+  {
+   "description": "CHAVE CRUCIFORM",
+   "quantity": 8,
+   "unit_price": "9.50",
+   "amount": "60.80"
+  },
+  {
+   "description": "CHAVE GORJA",
+   "quantity": 1,
+   "unit_price": "4.95",
+   "amount": "3.96"
+  },
+  {
+   "description": "CHAVE PALHETA",
+   "quantity": 2,
+   "unit_price": "12.20",
+   "amount": "19.52"
+  },
+  {
+   "description": "CHAVE COLORIDA",
+   "quantity": 3,
+   "unit_price": "3.25",
+   "amount": "7.80"
+  },
+  {
+   "description": "RE-3D",
+   "quantity": 1,
+   "unit_price": "5.50",
+   "amount": "4.40"
+  },
+  {
+   "description": "SOF1/2",
+   "quantity": 1,
+   "unit_price": "6.60",
+   "amount": "5.28"
+  },
+  {
+   "description": "CHAVE SIMPLES",
+   "quantity": 25,
+   "unit_price": "1.95",
+   "amount": "39.00"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "sole-trader vendor (legal name is a person) trading as Intermarche. Line amounts include a 20% discount so qty x unit != amount by design. 'S/ Desconto 280,25' is a decoy; subtotal left unlabeled (pre-discount gross vs net base 182,28 is ambiguous for this layout)."
+}

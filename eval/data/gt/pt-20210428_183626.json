@@ -1,0 +1,48 @@
+{
+ "doc_id": "pt-20210428_183626",
+ "file": "docs/pt/20210428_183626.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: Erilar",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Erilar",
+  "vendor_tax_id": "124713491",
+  "invoice_number": "FR 1/1072",
+  "invoice_date": "2018-12-06",
+  "bill_to_name": "FLIKEHOME",
+  "subtotal": "47.97",
+  "tax_rate": "23",
+  "tax_amount": "11.03",
+  "total": "59.00"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Maria Rosario Alves Almeida Pimenta"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "CALORIFICO OLEO ORBEGOZO 2000W RF2000",
+   "quantity": 1,
+   "unit_price": "59.00",
+   "amount": "59.00"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

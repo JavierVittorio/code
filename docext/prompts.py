@@ -8,7 +8,7 @@ import json
 from .ingest import Page
 from .schema import FIELD_SPECS, Kind
 
-PROMPT_VERSION = "v3"
+PROMPT_VERSION = "v4"
 
 _KIND_FORMAT = {
     Kind.text: "string",
@@ -35,9 +35,11 @@ blurry, cut off, handwritten, or when you had to choose between candidates. Do n
 5. Parties: vendor = the business that ISSUES the invoice and gets paid (letterhead/logo, "From", "Remit to"). \
 bill_to = the customer being charged ("Bill to", "Sold to", "Customer", "Invoice to"). ship_to only if a \
 distinct delivery block exists ("Ship to", "Deliver to"); otherwise null.
-6. invoice_number is ONLY the number labelled as the invoice / tax invoice / credit note / document number. \
-Purchase order, order, delivery note, quote, account, customer and "your/our reference" numbers are NOT invoice \
-numbers: if no invoice number is printed, invoice_number is null.
+6. invoice_number is ONLY the number labelled as the invoice / tax invoice / credit note / document number \
+("Invoice No", "Fatura N.", "Factura", "Fatura-Recibo", "Doc. N.", "Ref. fiscal"). Copy it complete, including a \
+series or document-type prefix printed as part of it (e.g. "FT 2019A17/2560", "FR PA9/29", "FAC 4530/735"). \
+Purchase order, order, delivery note, quote, account, customer, sale/operation ("Venda", "Operacao", "Num.") and \
+"your/our reference" numbers are NOT invoice numbers: if no invoice number is printed, invoice_number is null.
 7. Line items: every product/service row across ALL pages, in order, including rows continued on later pages. \
 Do NOT include subtotal, tax, discount, shipping-summary or total rows, nor "balance brought forward" rows. \
 Use null for a cell that is not printed.
@@ -53,7 +55,12 @@ prefix, tax-id format, currency): United States vendors write MM/DD/YYYY; vendor
 A part greater than 12 settles it. Use the same order for every date on the document.
 11. Currency: return the ISO code even when only a symbol is printed, using the vendor's country to resolve \
 symbols: "$" from a US vendor = USD, "$" or "N$" from a Namibian vendor = NAD, "R" in South Africa = ZAR, \
-"K" in Zambia = ZMW, "£" = GBP, "€" = EUR, "Rp" = IDR. Null only if there is no currency cue at all."""
+"K" in Zambia = ZMW, "£" = GBP, "€" = EUR, "Rp" = IDR. Null only if there is no currency cue at all.
+12. vendor_tax_id is the SELLER's tax number (in the seller block: "NIF", "NIPC", "VAT No", "Contribuinte"). \
+Never the customer's ("NIF Adquirente", "Cliente", "V/Nc", a number in the customer block), and never \
+registration, licence, software-certificate, share-capital or REEE numbers.
+13. tax_rate: if one VAT/tax rate applies to all taxed amounts (e.g. a VAT summary line "IVA 23%" or \
+"Taxa 23,00"), report it even if it is printed only in the tax summary table. Null if several non-zero rates apply."""
 
 
 def _skeleton() -> dict:

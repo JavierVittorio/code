@@ -1,0 +1,52 @@
+{
+ "doc_id": "pt-20210428_143506",
+ "file": "docs/pt/20210428_143506.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt",
+  "label_corrected",
+  "faded"
+ ],
+ "description": "Real Portuguese invoice photo: Supermercado Rocha S.A.",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Supermercado Rocha S.A.",
+  "vendor_tax_id": "500403201",
+  "invoice_number": "FT 20192002/38",
+  "invoice_date": "2019-02-09",
+  "bill_to_name": "FLIKEHOME",
+  "subtotal": "6.736",
+  "tax_rate": "6",
+  "tax_amount": "0.404",
+  "total": "7.14"
+ },
+ "alt_values": {},
+ "line_items": [
+  {
+   "description": "SCHAR PAO FORMA S.G CEREAIS 300G",
+   "quantity": 1,
+   "unit_price": "3.57",
+   "amount": "3.57"
+  },
+  {
+   "description": "SCHAR PAO FORMA S.G CEREAIS 300G",
+   "quantity": 1,
+   "unit_price": "3.57",
+   "amount": "3.57"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "VAT printed with 3 decimals (0.404, base 6.736); compared at 2 dp. dataset nif_seller 500402201 fails the NIF checksum; photo shows 500403201 (valid)."
+}

@@ -1,0 +1,48 @@
+{
+ "doc_id": "pt-20210215_162717",
+ "file": "docs/pt/20210215_162717.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: Bimba y Lola",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Bimba y Lola",
+  "invoice_number": "FT TP40/20009879",
+  "invoice_date": "2020-11-17",
+  "subtotal": "103.25",
+  "tax_rate": "23",
+  "tax_amount": "23.75",
+  "total": "127.00"
+ },
+ "alt_values": {},
+ "line_items": [
+  {
+   "description": "JERSEY DE PUNTO",
+   "quantity": 1,
+   "unit_price": "52.00",
+   "amount": "52.00"
+  },
+  {
+   "description": "JERSEY DE PUNTO",
+   "quantity": 1,
+   "unit_price": "75.00",
+   "amount": "75.00"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "dataset nif_seller 502586745 is the billing-software maker's NIF printed in the footer, not the seller's -> vendor_tax_id left unlabeled. Two-digit year date (17/11/20)."
+}

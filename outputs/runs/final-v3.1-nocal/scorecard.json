@@ -1060,6 +1060,7 @@
   "prompt_version": "v3",
   "image_profile": "raw",
   "config_fingerprint": "eeb5d3fb6f6c",
-  "mode": "local"
+  "mode": "local",
+  "rescored_at": "2026-10-09T13:31:36+00:00"
  }
 }

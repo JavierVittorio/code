@@ -1,0 +1,46 @@
+{
+ "doc_id": "pt-20210324_162552",
+ "file": "docs/pt/20210324_162552.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt",
+  "label_corrected",
+  "faded"
+ ],
+ "description": "Real Portuguese invoice photo: Ferragens G Lemos, Lda",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Ferragens G Lemos, Lda",
+  "vendor_tax_id": "501378723",
+  "invoice_number": "FT POS19V12/1903880",
+  "invoice_date": "2019-02-26",
+  "bill_to_name": "FLIKEHOME MEDIACAO IMOBILIA",
+  "subtotal": "7.73",
+  "tax_rate": "23",
+  "tax_amount": "1.78",
+  "total": "9.51"
+ },
+ "alt_values": {},
+ "line_items": [
+  {
+   "description": "BROCA DEWALT SDS DT9532 3 10X8mm",
+   "quantity": 1,
+   "unit_price": null,
+   "amount": "9.51"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "heavily faded thermal print. dataset nif_seller 501375723 fails the NIF checksum; photo shows 501378723 (valid). Customer name is truncated on the paper; GT keeps it as printed."
+}

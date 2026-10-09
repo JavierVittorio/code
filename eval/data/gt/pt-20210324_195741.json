@@ -1,0 +1,44 @@
+{
+ "doc_id": "pt-20210324_195741",
+ "file": "docs/pt/20210324_195741.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: Drogaria S Marcal Lda",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Drogaria S Marcal Lda",
+  "vendor_tax_id": "500563381",
+  "invoice_number": "FR 001/12446",
+  "invoice_date": "2019-03-14",
+  "bill_to_name": "Flikehome",
+  "subtotal": "2.28",
+  "tax_rate": "23",
+  "tax_amount": "0.52",
+  "total": "2.80"
+ },
+ "alt_values": {},
+ "line_items": [
+  {
+   "description": "Dobradica copo",
+   "quantity": 2,
+   "unit_price": "1.40",
+   "amount": "2.80"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,55 @@
+{
+ "doc_id": "pt-20210323_194951",
+ "file": "docs/pt/20210323_194951.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: BCM Bricolage, SA",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "BCM Bricolage, SA",
+  "vendor_tax_id": "506848558",
+  "invoice_number": "FT 05390111/0126862",
+  "invoice_date": "2019-02-03",
+  "bill_to_name": "FLH Algarve LDA",
+  "subtotal": "9.73",
+  "tax_rate": "23",
+  "tax_amount": "2.24",
+  "total": "11.97"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "AKI",
+   "AKI Portimao"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "2 REDUTORES E27/E14 PLAST",
+   "quantity": null,
+   "unit_price": null,
+   "amount": "1.99"
+  },
+  {
+   "description": "BASE C MESA QUAD 40W E14 P",
+   "quantity": 2,
+   "unit_price": "4.99",
+   "amount": "9.98"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

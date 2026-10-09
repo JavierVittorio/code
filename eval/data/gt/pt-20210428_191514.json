@@ -1,0 +1,47 @@
+{
+ "doc_id": "pt-20210428_191514",
+ "file": "docs/pt/20210428_191514.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: GALPGESTE, SA",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "GALPGESTE, SA",
+  "vendor_tax_id": "503043745",
+  "invoice_number": "FR 1155475201911Avg/314",
+  "invoice_date": "2019-03-01",
+  "bill_to_name": null,
+  "tax_rate": "23",
+  "tax_amount": "2.86",
+  "total": "15.28"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Galp"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "GASOLINA EVOLOGIC 95",
+   "quantity": "9.68",
+   "unit_price": "1.579",
+   "amount": "15.28"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "customer block has only a NIF and a licence plate, no name -> bill_to_name verified absent (hallucination probe). Numeric date 01/03/2019 is DD/MM. Subtotal not printed -> unlabeled."
+}

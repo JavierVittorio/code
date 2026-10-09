@@ -1,0 +1,59 @@
+{
+ "doc_id": "pt-20210324_162353",
+ "file": "docs/pt/20210324_162353.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: Norauto Portugal S.A.",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Norauto Portugal S.A.",
+  "vendor_tax_id": "503629995",
+  "invoice_number": "FT 060600003/332060",
+  "invoice_date": "2019-02-24",
+  "subtotal": "18.24",
+  "tax_rate": "23",
+  "tax_amount": "4.21",
+  "total": "22.45"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Norauto"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "5L NORAUTO 15W40 D",
+   "quantity": 1,
+   "unit_price": "14.95",
+   "amount": "14.95"
+  },
+  {
+   "description": "1LAMPADA NORAUTO H4",
+   "quantity": 1,
+   "unit_price": "6.50",
+   "amount": "6.50"
+  },
+  {
+   "description": "LIMPA VIDROS VELOX 50ML",
+   "quantity": 1,
+   "unit_price": "1.00",
+   "amount": "1.00"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

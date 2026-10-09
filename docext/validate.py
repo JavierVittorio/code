@@ -6,6 +6,7 @@ passing check raises it (independent evidence that every participating number wa
 """
 from __future__ import annotations
 
+import re
 from datetime import date
 from decimal import Decimal
 
@@ -16,6 +17,14 @@ from .schema import Check, LineItem
 def _close(a: Decimal, b: Decimal) -> bool:
     tol = max(Decimal("0.02"), abs(b) * Decimal("0.001"))  # 2 cents or 0.1% (rounding on big totals)
     return abs(a - b) <= tol
+
+
+def pt_nif_valid(d: str) -> bool:
+    """Portuguese NIF/NIPC: weights 9..2 on the first 8 digits, check = 11 - sum % 11 (10/11 -> 0)."""
+    if len(d) != 9 or not d.isdigit():
+        return False
+    c = 11 - sum(int(d[i]) * (9 - i) for i in range(8)) % 11
+    return (0 if c >= 10 else c) == int(d[8])
 
 
 def run_checks(v: dict[str, object], items: list[LineItem], format_errors: dict[str, str]) -> list[Check]:
@@ -88,7 +97,16 @@ def run_checks(v: dict[str, object], items: list[LineItem], format_errors: dict[
         checks.append(Check(name="currency_code", passed=ok, fields=["currency"],
                             detail="" if ok else f"unknown currency code {cur}"))
 
-    # 8. money sanity: non-negative, total is the largest summary amount
+    # 8. tax-id checksum (Portuguese NIF/NIPC: 9 digits, mod-11 check digit). A single misread digit fails it.
+    tid = v.get("vendor_tax_id")
+    m = re.fullmatch(r"(?:PT)?\s*(\d{3})\s*(\d{3})\s*(\d{3})", str(tid or "").strip().upper())
+    if m and cur == "EUR":
+        digits = "".join(m.groups())
+        ok = pt_nif_valid(digits)
+        checks.append(Check(name="tax_id_checksum", passed=ok, fields=["vendor_tax_id"],
+                            detail="" if ok else f"vendor_tax_id {tid} fails the Portuguese NIF check digit (misread digit?)"))
+
+    # 9. money sanity: non-negative, total is the largest summary amount
     if total is not None and total < 0:
         checks.append(Check(name="total_non_negative", passed=False, fields=["total"], detail=f"total {total} < 0"))
     return checks

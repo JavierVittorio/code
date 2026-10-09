@@ -83,9 +83,19 @@ class ItemScore:
     cells_total: dict[str, int]
 
 
+def _desc_sim(p, g) -> float:
+    """Descriptions often carry article codes on one side only ('202BR7224T1401XS JERSEY DE PUNTO' vs
+    'JERSEY DE PUNTO'): accept a full-token subset match once the shorter side is non-trivial."""
+    a, b = norm_text(p), norm_text(g)
+    s = fuzz.token_sort_ratio(a, b)
+    if min(len(a), len(b)) >= 8:
+        s = max(s, fuzz.token_set_ratio(a, b))
+    return s
+
+
 def _cell_ok(cell: str, p, g, alts=None) -> bool:
     if cell == "description":
-        return fuzz.token_sort_ratio(norm_text(p), norm_text(g)) >= 80
+        return _desc_sim(p, g) >= 80
     if cell == "quantity":
         a, b = parse_number(p), parse_number(g)
         return a is not None and b is not None and a == b
@@ -100,15 +110,15 @@ def score_line_items(pred: list[dict], gt: list[dict], cells: list[str]) -> Item
     cc = {c: 0 for c in cells}
     ct = {c: 0 for c in cells}
     if n == 0 or m == 0:
-        return ItemScore(n, m, 0, 0, cc, {c: n for c in cells})
+        return ItemScore(n, m, 0, 0, cc, {c: sum(1 for g in gt if g.get(c) is not None) for c in cells})
     sim = np.zeros((n, m))
     for i, g in enumerate(gt):
         for j, p in enumerate(pred):
-            s = fuzz.token_sort_ratio(norm_text(p.get("description")), norm_text(g.get("description"))) / 100
+            s = _desc_sim(p.get("description"), g.get("description")) / 100
             # agreement on the other labeled cells + row-order proximity break ties between repeated
             # descriptions (otherwise identical "Freight" rows get cross-matched and score as cell errors)
             for c in cells:
-                if c != "description":
+                if c != "description" and g.get(c) is not None:
                     s += 0.3 * _cell_ok(c, p.get(c), g.get(c), g.get("alt_amounts") if c == "amount" else None)
             s += 0.2 * (1 - abs(i / max(n - 1, 1) - j / max(m - 1, 1)))
             sim[i, j] = s
@@ -120,10 +130,12 @@ def score_line_items(pred: list[dict], gt: list[dict], cells: list[str]) -> Item
         matched += 1
         ok_all = True
         for c in cells:
+            if gt[i].get(c) is None:  # cell not printed on the document: nothing to score
+                continue
             ok = _cell_ok(c, pred[j].get(c), gt[i].get(c), gt[i].get("alt_amounts") if c == "amount" else None)
             cc[c] += ok
             ok_all &= ok
         exact += ok_all
     for c in cells:
-        ct[c] = n
+        ct[c] = sum(1 for g in gt if g.get(c) is not None)
     return ItemScore(n, m, matched, exact, cc, ct)

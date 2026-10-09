@@ -14,5 +14,6 @@
  "prompt_version": "v3",
  "image_profile": "raw",
  "config_fingerprint": "d4f9e6f3eed5",
- "api_key_configured": true
+ "api_key_configured": true,
+ "rescored_at": "2026-10-09T13:31:38+00:00"
 }

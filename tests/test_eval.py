@@ -108,3 +108,10 @@ def test_line_items_repeated_descriptions_align_by_cells_and_order():
     pred.insert(2, {"description": "Freight", "quantity": "9", "unit_price": "1", "amount": "9"})  # spurious row
     s = score_line_items(pred, gt, ["description", "quantity", "unit_price", "amount"])
     assert s.exact_rows == 4 and s.n_pred == 5
+
+
+def test_line_items_unprinted_gt_cells_not_scored_and_codes_tolerated():
+    gt = [{"description": "JERSEY DE PUNTO", "quantity": None, "unit_price": None, "amount": "52.00"}]
+    pred = [{"description": "202BR7224T1401XS JERSEY DE PUNTO", "quantity": "1", "unit_price": "52", "amount": "52.00"}]
+    s = score_line_items(pred, gt, ["description", "quantity", "unit_price", "amount"])
+    assert s.exact_rows == 1 and s.cells_total == {"description": 1, "quantity": 0, "unit_price": 0, "amount": 1}

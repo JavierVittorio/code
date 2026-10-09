@@ -134,3 +134,11 @@ def test_currency_grounding_uses_consistent_symbols():
     assert ground_value("currency", "NAD", None, "TOTAL $ 1,200.00") == 1.0
     assert ground_value("currency", "GBP", None, "Total £17,943.95") == 1.0
     assert ground_value("currency", "EUR", None, "Total 12.00") == 0.3
+
+
+def test_pt_nif_checksum_catches_misread_digit():
+    from docext.validate import pt_nif_valid
+    assert pt_nif_valid("505416654") and not pt_nif_valid("505116054")  # real dataset label error (IKEA)
+    typed, err = _typed(vendor_tax_id="PT 501 375 723", currency="EUR")
+    c = [c for c in run_checks(typed, [], err) if c.name == "tax_id_checksum"][0]
+    assert c.passed is False

@@ -1,0 +1,53 @@
+{
+ "doc_id": "pt-20210428_153616",
+ "file": "docs/pt/20210428_153616.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: CTT - Correios de Portugal, SA",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "CTT - Correios de Portugal, SA",
+  "vendor_tax_id": "500077568",
+  "invoice_number": "FR CTT2019FR881074701/1235",
+  "invoice_date": "2019-03-04",
+  "bill_to_name": "FLIKE HOME LDA",
+  "subtotal": "5.00",
+  "tax_amount": "0.16",
+  "total": "5.16"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "CTT"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "Reg. Int. RH336508169PT",
+   "quantity": 1,
+   "unit_price": null,
+   "amount": "4.30"
+  },
+  {
+   "description": "SAQUETAS ALMOFADADAS",
+   "quantity": 1,
+   "unit_price": null,
+   "amount": "0.70"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "mixed 0% (exempt postal service) and 23% VAT -> tax_rate left unlabeled."
+}

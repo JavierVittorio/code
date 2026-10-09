@@ -1,0 +1,44 @@
+{
+ "doc_id": "pt-20210428_182133",
+ "file": "docs/pt/20210428_182133.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: Carvalho, Batista, Lda",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Carvalho, Batista, Lda",
+  "vendor_tax_id": "500537380",
+  "invoice_number": "FT 2019A17/2560",
+  "invoice_date": "2019-04-09",
+  "bill_to_name": "FLIKEHOME LDA",
+  "subtotal": "5.29",
+  "tax_rate": "23",
+  "tax_amount": "1.22",
+  "total": "6.51"
+ },
+ "alt_values": {},
+ "line_items": [
+  {
+   "description": "Lampada Philips Tld 18",
+   "quantity": 1,
+   "unit_price": "5.29",
+   "amount": "5.29"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "decoy number 'Num. 2560 - 17' printed next to the real invoice number."
+}

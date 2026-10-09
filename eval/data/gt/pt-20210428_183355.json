@@ -1,0 +1,60 @@
+{
+ "doc_id": "pt-20210428_183355",
+ "file": "docs/pt/20210428_183355.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt"
+ ],
+ "description": "Real Portuguese invoice photo: Casa Bernardino",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Casa Bernardino",
+  "vendor_tax_id": "104110015",
+  "invoice_number": "FR PA9/29",
+  "invoice_date": "2019-03-25",
+  "bill_to_name": "Flikehome",
+  "subtotal": "36.99",
+  "tax_rate": "23",
+  "tax_amount": "8.51",
+  "total": "45.50"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Maria Manuela Fernandes Campos"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "CHAVE PONTOS",
+   "quantity": 3,
+   "unit_price": "10.00",
+   "amount": "30.00"
+  },
+  {
+   "description": "Chave universal",
+   "quantity": 7,
+   "unit_price": "1.50",
+   "amount": "10.50"
+  },
+  {
+   "description": "Chave 4 entradas",
+   "quantity": 1,
+   "unit_price": "5.00",
+   "amount": "5.00"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,63 @@
+{
+ "doc_id": "pt-20210429_220319",
+ "file": "docs/pt/20210429_220319.jpg",
+ "source": "invoices-receipts-pt",
+ "license": "Apache-2.0 (Francisco-Cruz/InvoicesReceiptsPT)",
+ "label_provenance": "dataset human transcription, every label verified against the photo; extra fields annotated from the photo; corrections in GT_CHANGELOG.md",
+ "pages": 1,
+ "tags": [
+  "real_photo",
+  "non_english",
+  "thermal_receipt",
+  "punch_holes",
+  "handwriting_marks"
+ ],
+ "description": "Real Portuguese invoice photo: Consertos Rapidos Amoreiras, Lda",
+ "fields": {
+  "document_type": "invoice",
+  "currency": "EUR",
+  "vendor_name": "Consertos Rapidos Amoreiras, Lda",
+  "vendor_tax_id": "506175502",
+  "invoice_number": "FTR 31/6397",
+  "invoice_date": "2019-11-05",
+  "bill_to_name": "FLIKEHOME",
+  "subtotal": "52.11",
+  "tax_rate": "23",
+  "tax_amount": "11.99",
+  "total": "64.10"
+ },
+ "alt_values": {
+  "vendor_name": [
+   "Security Center",
+   "Security Center Amoreiras"
+  ]
+ },
+ "line_items": [
+  {
+   "description": "CHAVE PONTOS MC148",
+   "quantity": 3,
+   "unit_price": "17.90",
+   "amount": "53.70"
+  },
+  {
+   "description": "CHAVE PLANA CS206 / CI-DL",
+   "quantity": 3,
+   "unit_price": "2.60",
+   "amount": "7.80"
+  },
+  {
+   "description": "CHAVE PLANA UL050 / U-5D",
+   "quantity": 1,
+   "unit_price": "2.60",
+   "amount": "2.60"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}
