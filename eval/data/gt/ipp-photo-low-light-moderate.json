@@ -1,0 +1,50 @@
+{
+ "doc_id": "ipp-photo-low-light-moderate",
+ "file": "docs/ipp/photo-low-light-moderate.jpg",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "photo",
+  "difficulty:medium",
+  "image",
+  "degradation:low_light"
+ ],
+ "description": "Zambian invoice -> low light (moderate).",
+ "fields": {
+  "vendor_name": "Copperline Workshop Supplies Ltd",
+  "invoice_number": "F-26-8395",
+  "invoice_date": "2025-04-11",
+  "due_date": "2025-05-11",
+  "currency": "ZMW",
+  "subtotal": 48021.62,
+  "tax_amount": 7683.46,
+  "total": 55705.08,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Pallet strapping kit",
+   "amount": 402.72
+  },
+  {
+   "description": "Truck tyre 315/80R22.5 drive",
+   "amount": 42186.24
+  },
+  {
+   "description": "Stretch wrap film 500mm x 300m",
+   "amount": 1835.9
+  },
+  {
+   "description": "Engine oil 15W-40, 20 L drum",
+   "amount": 3596.76
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,70 @@
+{
+ "doc_id": "synth-01-us-basic",
+ "file": "docs/synth/synth-01-us-basic.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 1,
+ "tags": [
+  "synthetic",
+  "locale:US",
+  "layout:classic",
+  "absent_fields"
+ ],
+ "description": "US classic invoice, 4 items, absent=[]",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "SI/2025-77880",
+  "invoice_date": "2025-12-26",
+  "due_date": "2026-02-09",
+  "currency": "USD",
+  "po_number": "PO-66602",
+  "payment_terms": "Net 45",
+  "vendor_name": "Mariposa Coffee Roasters",
+  "vendor_address": "455 Alameda St, Los Angeles, CA 90013, USA",
+  "vendor_tax_id": "95-4410287",
+  "bill_to_name": "Ridgeway Public Schools",
+  "bill_to_address": "1400 Ridgeway Ave, Portland, OR 97214, USA",
+  "ship_to_name": null,
+  "ship_to_address": null,
+  "subtotal": "100342.20",
+  "discount": null,
+  "tax_rate": "8.25",
+  "tax_amount": "8278.23",
+  "total": "108620.43"
+ },
+ "line_items": [
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "5",
+   "unit_price": "1504.72",
+   "amount": "7523.60"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "25",
+   "unit_price": "1398.21",
+   "amount": "34955.25"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "25",
+   "unit_price": "1842.27",
+   "amount": "46056.75"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "5",
+   "unit_price": "2361.32",
+   "amount": "11806.60"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

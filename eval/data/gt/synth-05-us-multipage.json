@@ -1,0 +1,252 @@
+{
+ "doc_id": "synth-05-us-multipage",
+ "file": "docs/synth/synth-05-us-multipage.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 2,
+ "tags": [
+  "synthetic",
+  "locale:US",
+  "layout:classic",
+  "multipage",
+  "table_split",
+  "ship_to"
+ ],
+ "description": "US classic invoice, 34 items, absent=[]",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "2026-16838",
+  "invoice_date": "2026-02-20",
+  "due_date": "2026-03-22",
+  "currency": "USD",
+  "po_number": "PO-15775",
+  "payment_terms": "Net 30",
+  "vendor_name": "Cobalt Ridge Software LLC",
+  "vendor_address": "2201 Market St, Suite 400, Denver, CO 80205, USA",
+  "vendor_tax_id": "84-2918377",
+  "bill_to_name": "Atelier Lumen SARL",
+  "bill_to_address": "12 Rue des Arts, 69002 Lyon, France",
+  "ship_to_name": "Ridgeway Central Warehouse",
+  "ship_to_address": "77 NE Columbia Blvd, Portland, OR 97211, USA",
+  "subtotal": "259027.04",
+  "discount": "12951.35",
+  "tax_rate": "8.25",
+  "tax_amount": "20301.24",
+  "total": "266376.93"
+ },
+ "line_items": [
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "12",
+   "unit_price": "1834.21",
+   "amount": "22010.52"
+  },
+  {
+   "description": "Stainless fitting 1/4in NPT",
+   "quantity": "1",
+   "unit_price": "2308.24",
+   "amount": "2308.24"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "2",
+   "unit_price": "1338.73",
+   "amount": "2677.46"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "10",
+   "unit_price": "430.84",
+   "amount": "4308.40"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "2",
+   "unit_price": "1680.96",
+   "amount": "3361.92"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "25",
+   "unit_price": "1564.63",
+   "amount": "39115.75"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "3",
+   "unit_price": "169.06",
+   "amount": "507.18"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "10",
+   "unit_price": "2224.93",
+   "amount": "22249.30"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "1",
+   "unit_price": "1371.43",
+   "amount": "1371.43"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "1",
+   "unit_price": "2452.78",
+   "amount": "2452.78"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "10",
+   "unit_price": "649.64",
+   "amount": "6496.40"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "3",
+   "unit_price": "706.66",
+   "amount": "2119.98"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "2",
+   "unit_price": "1597.10",
+   "amount": "3194.20"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "1",
+   "unit_price": "1322.93",
+   "amount": "1322.93"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "1",
+   "unit_price": "2100.16",
+   "amount": "2100.16"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "1",
+   "unit_price": "622.93",
+   "amount": "622.93"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "12",
+   "unit_price": "2381.67",
+   "amount": "28580.04"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "1",
+   "unit_price": "1355.56",
+   "amount": "1355.56"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "2",
+   "unit_price": "350.88",
+   "amount": "701.76"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "10",
+   "unit_price": "1678.84",
+   "amount": "16788.40"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "1",
+   "unit_price": "853.89",
+   "amount": "853.89"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "1",
+   "unit_price": "1682.05",
+   "amount": "1682.05"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "2",
+   "unit_price": "1484.71",
+   "amount": "2969.42"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "5",
+   "unit_price": "833.05",
+   "amount": "4165.25"
+  },
+  {
+   "description": "Stainless fitting 1/4in NPT",
+   "quantity": "2",
+   "unit_price": "412.27",
+   "amount": "824.54"
+  },
+  {
+   "description": "Stainless fitting 1/4in NPT",
+   "quantity": "3",
+   "unit_price": "1803.00",
+   "amount": "5409.00"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "5",
+   "unit_price": "511.26",
+   "amount": "2556.30"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "25",
+   "unit_price": "1638.41",
+   "amount": "40960.25"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "25",
+   "unit_price": "475.48",
+   "amount": "11887.00"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "2",
+   "unit_price": "756.91",
+   "amount": "1513.82"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "1",
+   "unit_price": "1852.04",
+   "amount": "1852.04"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "12",
+   "unit_price": "240.54",
+   "amount": "2886.48"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "10",
+   "unit_price": "1646.44",
+   "amount": "16464.40"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "3",
+   "unit_price": "452.42",
+   "amount": "1357.26"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -63,10 +63,14 @@ def ground_value(name: str, value: object, evidence: str | None, text: str) -> f
         if v and v in norm_ident(text):
             return 1.0
         return fuzz.partial_ratio(v, norm_ident(text)) / 100 * 0.9
+    if kind == Kind.doctype:
+        is_credit = bool(re.search(r"credit|cr[eé]dito|gutschrift", text, re.I))
+        return 1.0 if (value == "credit_note") == is_credit else 0.2
     if kind == Kind.currency:
         if str(value) in text.upper():
             return 1.0
-        sym = {"USD": "$", "EUR": "€", "GBP": "£", "IDR": "Rp", "INR": "₹", "JPY": "¥"}.get(str(value))
+        sym = {"USD": "$", "EUR": "€", "GBP": "£", "IDR": "Rp", "INR": "₹", "JPY": "¥", "ZAR": "R",
+               "NAD": "N$", "ZMW": "K"}.get(str(value))
         return 0.8 if sym and sym in text else 0.3  # currency is often implied; weak signal either way
     # free text: names/addresses. token_set handles reordering and OCR line breaks.
     v = norm_text(value)

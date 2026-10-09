@@ -1,0 +1,66 @@
+{
+ "doc_id": "synth-11-eu-no-tax-id",
+ "file": "docs/synth/synth-11-eu-no-tax-id.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 1,
+ "tags": [
+  "synthetic",
+  "locale:EU",
+  "layout:classic",
+  "scan:light",
+  "image",
+  "absent_fields"
+ ],
+ "description": "EU classic invoice, 3 items, absent=['due_date', 'po_number', 'vendor_tax_id']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "INV-2025-20734",
+  "invoice_date": "2025-06-26",
+  "due_date": null,
+  "currency": "EUR",
+  "po_number": null,
+  "payment_terms": "Net 45",
+  "vendor_name": "Studio Vermeer B.V.",
+  "vendor_address": "Prinsengracht 263, 1016 GV Amsterdam, Netherlands",
+  "vendor_tax_id": null,
+  "bill_to_name": "CV Maju Bersama",
+  "bill_to_address": "Jl. Diponegoro 21, Bandung 40115, Indonesia",
+  "ship_to_name": null,
+  "ship_to_address": null,
+  "subtotal": "7365.55",
+  "discount": "368.28",
+  "tax_rate": "19",
+  "tax_amount": "1329.48",
+  "total": "8326.75"
+ },
+ "line_items": [
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "5",
+   "unit_price": "15.71",
+   "amount": "78.55"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "1",
+   "unit_price": "2114.94",
+   "amount": "2114.94"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "3",
+   "unit_price": "1724.02",
+   "amount": "5172.06"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

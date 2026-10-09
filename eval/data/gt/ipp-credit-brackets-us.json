@@ -1,0 +1,35 @@
+{
+ "doc_id": "ipp-credit-brackets-us",
+ "file": "docs/ipp/credit-brackets-us.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "credit",
+  "difficulty:medium"
+ ],
+ "description": "CREDIT MEMO, negatives printed as 'brackets'.",
+ "fields": {
+  "vendor_name": "Granite Workshop Supplies Inc",
+  "invoice_number": "CN-2026-0263",
+  "invoice_date": "2025-03-19",
+  "currency": "USD",
+  "subtotal": 1891.96,
+  "tax_amount": 156.09,
+  "total": 2048.05,
+  "document_type": "credit_note"
+ },
+ "line_items": [
+  {
+   "description": "Air filter element, heavy duty",
+   "amount": 1891.96
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

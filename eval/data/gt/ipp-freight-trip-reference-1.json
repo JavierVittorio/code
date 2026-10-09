@@ -1,0 +1,40 @@
+{
+ "doc_id": "ipp-freight-trip-reference-1",
+ "file": "docs/ipp/freight-trip-reference-1.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "freight",
+  "difficulty:medium"
+ ],
+ "description": "Transport invoice with Trip No / Load Ref / truck registration printed.",
+ "fields": {
+  "vendor_name": "Skeleton Bay Haulage (Pty) Ltd",
+  "invoice_number": "INV-2026-96480",
+  "invoice_date": "2025-04-25",
+  "due_date": "2025-05-25",
+  "currency": "NAD",
+  "subtotal": 52752.33,
+  "tax_amount": 7912.85,
+  "total": 60665.18,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Container haulage 40ft {a} depot",
+   "amount": 23571.74
+  },
+  {
+   "description": "Linehaul {a} - {b}",
+   "amount": 29180.59
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

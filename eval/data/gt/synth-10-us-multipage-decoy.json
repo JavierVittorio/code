@@ -1,0 +1,364 @@
+{
+ "doc_id": "synth-10-us-multipage-decoy",
+ "file": "docs/synth/synth-10-us-multipage-decoy.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 2,
+ "tags": [
+  "synthetic",
+  "locale:US",
+  "layout:compact",
+  "multipage",
+  "table_split",
+  "scan:light",
+  "image",
+  "absent_fields",
+  "ship_to",
+  "decoy_amounts"
+ ],
+ "description": "US compact invoice, 52 items, absent=['vendor_tax_id']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "SI/2025-66203",
+  "invoice_date": "2025-03-03",
+  "due_date": "2025-04-02",
+  "currency": "USD",
+  "po_number": "PO-79721",
+  "payment_terms": "Net 30",
+  "vendor_name": "Mariposa Coffee Roasters",
+  "vendor_address": "455 Alameda St, Los Angeles, CA 90013, USA",
+  "vendor_tax_id": null,
+  "bill_to_name": "Hollander Medical Group",
+  "bill_to_address": "88 Weteringschans, 1017 SH Amsterdam, Netherlands",
+  "ship_to_name": "Kestrel Aviation - Stores",
+  "ship_to_address": "Unit 9, Lulsgate Business Park, Bristol BS48 3DZ, United Kingdom",
+  "subtotal": "470388.85",
+  "discount": null,
+  "tax_rate": "8.25",
+  "tax_amount": "38807.08",
+  "total": "509195.93"
+ },
+ "line_items": [
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "3",
+   "unit_price": "1941.16",
+   "amount": "5823.48"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "12",
+   "unit_price": "576.04",
+   "amount": "6912.48"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "12",
+   "unit_price": "234.68",
+   "amount": "2816.16"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "25",
+   "unit_price": "1078.24",
+   "amount": "26956.00"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "12",
+   "unit_price": "2038.07",
+   "amount": "24456.84"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "3",
+   "unit_price": "1609.89",
+   "amount": "4829.67"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "25",
+   "unit_price": "1860.13",
+   "amount": "46503.25"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "5",
+   "unit_price": "1893.15",
+   "amount": "9465.75"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "1",
+   "unit_price": "1117.18",
+   "amount": "1117.18"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "1",
+   "unit_price": "1656.64",
+   "amount": "1656.64"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "1",
+   "unit_price": "644.75",
+   "amount": "644.75"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "1",
+   "unit_price": "1586.13",
+   "amount": "1586.13"
+  },
+  {
+   "description": "Stainless fitting 1/4in NPT",
+   "quantity": "2",
+   "unit_price": "1741.93",
+   "amount": "3483.86"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "5",
+   "unit_price": "1672.17",
+   "amount": "8360.85"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "25",
+   "unit_price": "1220.73",
+   "amount": "30518.25"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "12",
+   "unit_price": "992.68",
+   "amount": "11912.16"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "2",
+   "unit_price": "2218.21",
+   "amount": "4436.42"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "1",
+   "unit_price": "23.72",
+   "amount": "23.72"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "10",
+   "unit_price": "226.10",
+   "amount": "2261.00"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "3",
+   "unit_price": "1992.99",
+   "amount": "5978.97"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "5",
+   "unit_price": "705.21",
+   "amount": "3526.05"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "25",
+   "unit_price": "454.22",
+   "amount": "11355.50"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "3",
+   "unit_price": "459.92",
+   "amount": "1379.76"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "2",
+   "unit_price": "1505.79",
+   "amount": "3011.58"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "2",
+   "unit_price": "422.10",
+   "amount": "844.20"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "1",
+   "unit_price": "819.72",
+   "amount": "819.72"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "10",
+   "unit_price": "955.73",
+   "amount": "9557.30"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "5",
+   "unit_price": "690.05",
+   "amount": "3450.25"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "5",
+   "unit_price": "396.28",
+   "amount": "1981.40"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "12",
+   "unit_price": "1014.52",
+   "amount": "12174.24"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "2",
+   "unit_price": "216.62",
+   "amount": "433.24"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "12",
+   "unit_price": "2474.54",
+   "amount": "29694.48"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "5",
+   "unit_price": "2243.27",
+   "amount": "11216.35"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "3",
+   "unit_price": "526.02",
+   "amount": "1578.06"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "25",
+   "unit_price": "1413.64",
+   "amount": "35341.00"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "5",
+   "unit_price": "1972.62",
+   "amount": "9863.10"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "2",
+   "unit_price": "1002.41",
+   "amount": "2004.82"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "3",
+   "unit_price": "1750.85",
+   "amount": "5252.55"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "2",
+   "unit_price": "2288.78",
+   "amount": "4577.56"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "12",
+   "unit_price": "634.08",
+   "amount": "7608.96"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "3",
+   "unit_price": "1168.78",
+   "amount": "3506.34"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "3",
+   "unit_price": "593.53",
+   "amount": "1780.59"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "1",
+   "unit_price": "1647.34",
+   "amount": "1647.34"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "2",
+   "unit_price": "1697.46",
+   "amount": "3394.92"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "10",
+   "unit_price": "2085.34",
+   "amount": "20853.40"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "25",
+   "unit_price": "1766.40",
+   "amount": "44160.00"
+  },
+  {
+   "description": "Stainless fitting 1/4in NPT",
+   "quantity": "12",
+   "unit_price": "1981.50",
+   "amount": "23778.00"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "5",
+   "unit_price": "120.36",
+   "amount": "601.80"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "1",
+   "unit_price": "1007.80",
+   "amount": "1007.80"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "3",
+   "unit_price": "1843.01",
+   "amount": "5529.03"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "2",
+   "unit_price": "1624.80",
+   "amount": "3249.60"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "5",
+   "unit_price": "1093.27",
+   "amount": "5466.35"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

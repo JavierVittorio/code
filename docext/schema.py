@@ -26,10 +26,12 @@ class Kind(str, Enum):
     money = "money"
     rate = "rate"  # percentage, e.g. 10 for 10%
     currency = "currency"  # ISO 4217
+    doctype = "doctype"  # invoice | credit_note
 
 
 # Ordered: this is also the order presented to the model.
 FIELD_SPECS: dict[str, tuple[Kind, str]] = {
+    "document_type": (Kind.doctype, "'invoice' or 'credit_note' (credit note / credit memo / nota de credito)"),
     "invoice_number": (Kind.ident, "Invoice number / ID as printed"),
     "invoice_date": (Kind.date, "Issue date of the invoice"),
     "due_date": (Kind.date, "Payment due date. Only if explicitly printed; do NOT compute from terms"),
@@ -43,7 +45,7 @@ FIELD_SPECS: dict[str, tuple[Kind, str]] = {
     "bill_to_address": (Kind.text, "Billing address, single line, comma separated"),
     "ship_to_name": (Kind.text, "Ship-to / deliver-to party, only if a separate ship-to block exists"),
     "ship_to_address": (Kind.text, "Ship-to address, only if a separate ship-to block exists"),
-    "subtotal": (Kind.money, "Sum before tax/discount"),
+    "subtotal": (Kind.money, "Sum of line items before tax (and before invoice-level discount/charges)"),
     "discount": (Kind.money, "Total discount amount (positive number)"),
     "tax_rate": (Kind.rate, "Tax rate in percent (10 for 10%). Only if printed"),
     "tax_amount": (Kind.money, "Total tax amount"),
@@ -125,6 +127,9 @@ class ExtractionResult(BaseModel):
     doc_id: str
     status: Literal["ok", "failed"] = "ok"
     error: str | None = None
+    # Document-level routing decision: send to a human when numbers don't reconcile or key fields abstained.
+    needs_review: bool = False
+    review_reasons: list[str] = Field(default_factory=list)
     fields: dict[str, ExtractedField] = Field(default_factory=dict)
     line_items: list[LineItem] = Field(default_factory=list)
     line_items_confidence: float = 0.0

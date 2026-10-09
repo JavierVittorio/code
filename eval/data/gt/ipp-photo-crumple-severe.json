@@ -1,0 +1,50 @@
+{
+ "doc_id": "ipp-photo-crumple-severe",
+ "file": "docs/ipp/photo-crumple-severe.jpg",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "photo",
+  "difficulty:hard",
+  "image",
+  "degradation:crumple"
+ ],
+ "description": "UK invoice -> crumple (severe).",
+ "fields": {
+  "vendor_name": "Wolds Workshop Supplies plc",
+  "invoice_number": "050179",
+  "invoice_date": "2025-08-02",
+  "due_date": "2025-09-01",
+  "currency": "GBP",
+  "subtotal": 14953.29,
+  "tax_amount": 2990.66,
+  "total": 17943.95,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Toner cartridge, black, high yield",
+   "amount": 3737.0
+  },
+  {
+   "description": "Air filter element, heavy duty",
+   "amount": 4002.84
+  },
+  {
+   "description": "Ratchet straps 50mm x 9m (4)",
+   "amount": 3536.0
+  },
+  {
+   "description": "Stretch wrap film 500mm x 300m",
+   "amount": 3677.45
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

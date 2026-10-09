@@ -1,0 +1,45 @@
+{
+ "doc_id": "ipp-handwritten-invoice-book-neat-1",
+ "file": "docs/ipp/handwritten-invoice-book-neat-1.jpg",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "handwritten",
+  "difficulty:medium",
+  "image"
+ ],
+ "description": "Pre-printed cash invoice book filled in by hand (neat handwriting).",
+ "fields": {
+  "vendor_name": "Etosha Gate Office Supplies (Pty) Ltd",
+  "invoice_number": "2431",
+  "invoice_date": "2025-07-24",
+  "due_date": "2025-09-22",
+  "currency": "NAD",
+  "subtotal": 24476.08,
+  "tax_amount": 3671.41,
+  "total": 28147.49,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Pallet strapping kit",
+   "amount": 1006.58
+  },
+  {
+   "description": "LED work lamp 24V",
+   "amount": 3239.39
+  },
+  {
+   "description": "Truck tyre 315/80R22.5 drive",
+   "amount": 20230.11
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

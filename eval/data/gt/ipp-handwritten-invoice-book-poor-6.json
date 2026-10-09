@@ -1,0 +1,44 @@
+{
+ "doc_id": "ipp-handwritten-invoice-book-poor-6",
+ "file": "docs/ipp/handwritten-invoice-book-poor-6.jpg",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "handwritten",
+  "difficulty:hard",
+  "image"
+ ],
+ "description": "Pre-printed delivery note / invoice book filled in by hand (poor handwriting).",
+ "fields": {
+  "vendor_name": "Erongo Workshop Supplies (Pty) Ltd",
+  "invoice_number": "9518",
+  "invoice_date": "2025-04-17",
+  "currency": "NAD",
+  "subtotal": 6284.61,
+  "tax_amount": 942.69,
+  "total": 7227.3,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Toner cartridge, black, high yield",
+   "amount": 1392.65
+  },
+  {
+   "description": "Hex bolts M12 x 50 galvanised (box 50)",
+   "amount": 3243.04
+  },
+  {
+   "description": "LED work lamp 24V",
+   "amount": 1648.92
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

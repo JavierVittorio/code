@@ -1,0 +1,83 @@
+{
+ "doc_id": "synth-02-eu-shipto",
+ "file": "docs/synth/synth-02-eu-shipto.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 1,
+ "tags": [
+  "synthetic",
+  "locale:EU",
+  "layout:modern",
+  "absent_fields",
+  "ship_to"
+ ],
+ "description": "EU modern invoice, 6 items, absent=['po_number']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "F2026-24766",
+  "invoice_date": "2026-04-23",
+  "due_date": "2026-05-23",
+  "currency": "EUR",
+  "po_number": null,
+  "payment_terms": "Net 30",
+  "vendor_name": "Studio Vermeer B.V.",
+  "vendor_address": "Prinsengracht 263, 1016 GV Amsterdam, Netherlands",
+  "vendor_tax_id": "NL854502130B01",
+  "bill_to_name": "Kestrel Aviation Services",
+  "bill_to_address": "Hangar 3, Bristol Airport, Bristol BS48 3DY, United Kingdom",
+  "ship_to_name": "Ridgeway Central Warehouse",
+  "ship_to_address": "77 NE Columbia Blvd, Portland, OR 97211, USA",
+  "subtotal": "12430.06",
+  "discount": null,
+  "tax_rate": "19",
+  "tax_amount": "2361.71",
+  "total": "14791.77"
+ },
+ "line_items": [
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "3",
+   "unit_price": "597.95",
+   "amount": "1793.85"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "1",
+   "unit_price": "1962.50",
+   "amount": "1962.50"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "5",
+   "unit_price": "619.99",
+   "amount": "3099.95"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "1",
+   "unit_price": "2256.93",
+   "amount": "2256.93"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "1",
+   "unit_price": "54.93",
+   "amount": "54.93"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "3",
+   "unit_price": "1087.30",
+   "amount": "3261.90"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,78 @@
+{
+ "doc_id": "synth-03-id-scan",
+ "file": "docs/synth/synth-03-id-scan.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 1,
+ "tags": [
+  "synthetic",
+  "locale:ID",
+  "layout:classic",
+  "scan:light",
+  "image",
+  "absent_fields"
+ ],
+ "description": "ID classic invoice, 5 items, absent=['due_date', 'po_number']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "INV-2025-76304",
+  "invoice_date": "2025-11-04",
+  "due_date": null,
+  "currency": "IDR",
+  "po_number": null,
+  "payment_terms": "Net 45",
+  "vendor_name": "PT Sinar Nusantara Teknik",
+  "vendor_address": "Jl. Gatot Subroto No. 88, Jakarta Selatan 12930, Indonesia",
+  "vendor_tax_id": "01.234.567.8-901.000",
+  "bill_to_name": "CV Maju Bersama",
+  "bill_to_address": "Jl. Diponegoro 21, Bandung 40115, Indonesia",
+  "ship_to_name": null,
+  "ship_to_address": null,
+  "subtotal": "156484000.00",
+  "discount": null,
+  "tax_rate": "11",
+  "tax_amount": "17213240.00",
+  "total": "173697240.00"
+ },
+ "line_items": [
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "25",
+   "unit_price": "3343000.00",
+   "amount": "83575000.00"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "10",
+   "unit_price": "1730000.00",
+   "amount": "17300000.00"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "10",
+   "unit_price": "4397000.00",
+   "amount": "43970000.00"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "1",
+   "unit_price": "2663000.00",
+   "amount": "2663000.00"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "12",
+   "unit_price": "748000.00",
+   "amount": "8976000.00"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,50 @@
+{
+ "doc_id": "ipp-scan-noise-moderate",
+ "file": "docs/ipp/scan-noise-moderate.png",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "scan",
+  "difficulty:medium",
+  "image",
+  "degradation:noise"
+ ],
+ "description": "Carrier invoice Walvis Bay - Lubumbashi: linehaul, fuel surcharge %, accessorials. -> noise (moderate).",
+ "fields": {
+  "vendor_name": "Skeleton Bay Logistics (Pty) Ltd",
+  "invoice_number": "INV-2026-44556",
+  "invoice_date": "2025-09-29",
+  "due_date": "2025-10-29",
+  "currency": "NAD",
+  "subtotal": 33324.16,
+  "tax_amount": 4998.62,
+  "total": 38322.78,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Linehaul Walvis Bay - Lubumbashi",
+   "amount": 26912.73
+  },
+  {
+   "description": "Fuel surcharge 15%",
+   "amount": 4036.91
+  },
+  {
+   "description": "Border crossing fee",
+   "amount": 1459.04
+  },
+  {
+   "description": "Waiting time at consignee",
+   "amount": 915.48
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

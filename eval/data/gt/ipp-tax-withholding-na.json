@@ -1,0 +1,40 @@
+{
+ "doc_id": "ipp-tax-withholding-na",
+ "file": "docs/ipp/tax-withholding-na.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "tax",
+  "difficulty:hard"
+ ],
+ "description": "Withholding deducted below the total, then 'Net Amount Due'.",
+ "fields": {
+  "vendor_name": "Erongo IT Services CC",
+  "invoice_number": "2026/2421",
+  "invoice_date": "2026-05-16",
+  "due_date": "2026-06-15",
+  "currency": "NAD",
+  "subtotal": 9061.27,
+  "tax_amount": 1359.19,
+  "total": 10420.46,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Network switch configuration",
+   "amount": 1192.45
+  },
+  {
+   "description": "Monthly IT support retainer",
+   "amount": 7868.82
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": "Withholding is deducted at payment; the expected total is the invoice total before it."
+}

@@ -1,0 +1,47 @@
+{
+ "doc_id": "ipp-hard-missing-invoice-number-1",
+ "file": "docs/ipp/hard-missing-invoice-number-1.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "hard",
+  "difficulty:hard"
+ ],
+ "description": "No invoice number printed; only a PO / delivery note number.",
+ "fields": {
+  "vendor_name": "Okavango Engineering Supplies (Pty) Ltd",
+  "invoice_number": null,
+  "invoice_date": "2026-04-06",
+  "currency": "NAD",
+  "subtotal": 11726.98,
+  "tax_amount": 1759.05,
+  "total": 13486.03,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Pallet strapping kit",
+   "amount": 2347.32
+  },
+  {
+   "description": "Hydraulic hose 1/2in, per metre",
+   "amount": 4837.2
+  },
+  {
+   "description": "LED work lamp 24V",
+   "amount": 261.19
+  },
+  {
+   "description": "Toner cartridge, black, high yield",
+   "amount": 4281.27
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

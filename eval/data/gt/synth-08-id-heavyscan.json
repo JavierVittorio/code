@@ -1,0 +1,103 @@
+{
+ "doc_id": "synth-08-id-heavyscan",
+ "file": "docs/synth/synth-08-id-heavyscan.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 1,
+ "tags": [
+  "synthetic",
+  "locale:ID",
+  "layout:compact",
+  "scan:heavy",
+  "image",
+  "absent_fields",
+  "ship_to"
+ ],
+ "description": "ID compact invoice, 9 items, absent=['payment_terms', 'po_number']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "SI/2025-64781",
+  "invoice_date": "2025-06-10",
+  "due_date": "2025-07-10",
+  "currency": "IDR",
+  "po_number": null,
+  "payment_terms": null,
+  "vendor_name": "CV Kopi Lereng Merapi",
+  "vendor_address": "Jl. Kaliurang Km 9, Sleman, Yogyakarta 55581, Indonesia",
+  "vendor_tax_id": "82.415.903.6-542.000",
+  "bill_to_name": "Hollander Medical Group",
+  "bill_to_address": "88 Weteringschans, 1017 SH Amsterdam, Netherlands",
+  "ship_to_name": "Ridgeway Central Warehouse",
+  "ship_to_address": "77 NE Columbia Blvd, Portland, OR 97211, USA",
+  "subtotal": "125636000.00",
+  "discount": "6281800.00",
+  "tax_rate": "11",
+  "tax_amount": "13128962.00",
+  "total": "132483162.00"
+ },
+ "line_items": [
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "3",
+   "unit_price": "2392000.00",
+   "amount": "7176000.00"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "5",
+   "unit_price": "4406000.00",
+   "amount": "22030000.00"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "3",
+   "unit_price": "2925000.00",
+   "amount": "8775000.00"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "1",
+   "unit_price": "2950000.00",
+   "amount": "2950000.00"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "10",
+   "unit_price": "2096000.00",
+   "amount": "20960000.00"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "10",
+   "unit_price": "2484000.00",
+   "amount": "24840000.00"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "2",
+   "unit_price": "3665000.00",
+   "amount": "7330000.00"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "5",
+   "unit_price": "3647000.00",
+   "amount": "18235000.00"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "10",
+   "unit_price": "1334000.00",
+   "amount": "13340000.00"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

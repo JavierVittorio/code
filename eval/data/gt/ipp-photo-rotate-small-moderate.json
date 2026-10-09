@@ -1,0 +1,50 @@
+{
+ "doc_id": "ipp-photo-rotate-small-moderate",
+ "file": "docs/ipp/photo-rotate-small-moderate.jpg",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "photo",
+  "difficulty:medium",
+  "image",
+  "degradation:rotate_small"
+ ],
+ "description": "Namibian tax invoice -> rotate small (moderate).",
+ "fields": {
+  "vendor_name": "Okavango Hardware (Pty) Ltd",
+  "invoice_number": "INV-2026-70022",
+  "invoice_date": "2025-09-23",
+  "due_date": "2025-11-22",
+  "currency": "NAD",
+  "subtotal": 38696.11,
+  "tax_amount": 5804.42,
+  "total": 44500.53,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Toner cartridge, black, high yield",
+   "amount": 7604.94
+  },
+  {
+   "description": "Safety boots, steel toe, size 9",
+   "amount": 4451.44
+  },
+  {
+   "description": "LED work lamp 24V",
+   "amount": 547.58
+  },
+  {
+   "description": "Truck tyre 315/80R22.5 drive",
+   "amount": 26092.15
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,50 @@
+{
+ "doc_id": "ipp-photo-crop-edges-severe",
+ "file": "docs/ipp/photo-crop-edges-severe.jpg",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "photo",
+  "difficulty:hard",
+  "image",
+  "degradation:crop_edges"
+ ],
+ "description": "SA tax invoice -> crop edges (severe).",
+ "fields": {
+  "vendor_name": "Suidkus Workshop Supplies (Pty) Ltd",
+  "invoice_number": "IN0084778",
+  "invoice_date": "2025-08-02",
+  "due_date": "2025-08-16",
+  "currency": "ZAR",
+  "subtotal": 11332.71,
+  "tax_amount": 1699.91,
+  "total": 13032.62,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Toner cartridge, black, high yield",
+   "amount": 2539.08
+  },
+  {
+   "description": "Stretch wrap film 500mm x 300m",
+   "amount": 3835.25
+  },
+  {
+   "description": "LED work lamp 24V",
+   "amount": 2167.62
+  },
+  {
+   "description": "Angle grinder discs 115mm (10)",
+   "amount": 2790.76
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

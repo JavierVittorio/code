@@ -1,0 +1,49 @@
+{
+ "doc_id": "ipp-hard-lines-vs-subtotal",
+ "file": "docs/ipp/hard-lines-vs-subtotal.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "hard",
+  "difficulty:hard",
+  "should_flag"
+ ],
+ "description": "Printed subtotal 7% above the sum of the lines.",
+ "fields": {
+  "vendor_name": "Blouberg Tyre & Parts (Pty) Ltd",
+  "invoice_number": "IN0009065",
+  "invoice_date": "2026-03-14",
+  "due_date": "2026-04-13",
+  "currency": "ZAR",
+  "subtotal": 10661.48,
+  "tax_amount": 1494.6,
+  "total": 12156.08,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Hex bolts M12 x 50 galvanised (box 50)",
+   "amount": 304.24
+  },
+  {
+   "description": "Safety boots, steel toe, size 9",
+   "amount": 1695.66
+  },
+  {
+   "description": "Ratchet straps 50mm x 9m (4)",
+   "amount": 3961.98
+  },
+  {
+   "description": "LED work lamp 24V",
+   "amount": 4002.12
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": true,
+ "notes": ""
+}

@@ -1,0 +1,290 @@
+{
+ "doc_id": "synth-06-eu-multipage-scan",
+ "file": "docs/synth/synth-06-eu-multipage-scan.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 2,
+ "tags": [
+  "synthetic",
+  "locale:EU",
+  "layout:modern",
+  "multipage",
+  "table_split",
+  "scan:heavy",
+  "image",
+  "absent_fields"
+ ],
+ "description": "EU modern invoice, 40 items, absent=['due_date']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "INV-2025-30041",
+  "invoice_date": "2025-06-12",
+  "due_date": null,
+  "currency": "EUR",
+  "po_number": "PO-76349",
+  "payment_terms": "Net 30",
+  "vendor_name": "Borealis Lab Instruments GmbH",
+  "vendor_address": "Industriestr. 14, 70565 Stuttgart, Germany",
+  "vendor_tax_id": "DE298374651",
+  "bill_to_name": "CV Maju Bersama",
+  "bill_to_address": "Jl. Diponegoro 21, Bandung 40115, Indonesia",
+  "ship_to_name": null,
+  "ship_to_address": null,
+  "subtotal": "278190.32",
+  "discount": null,
+  "tax_rate": "19",
+  "tax_amount": "52856.16",
+  "total": "331046.48"
+ },
+ "line_items": [
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "3",
+   "unit_price": "1364.09",
+   "amount": "4092.27"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "1",
+   "unit_price": "1684.92",
+   "amount": "1684.92"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "5",
+   "unit_price": "600.09",
+   "amount": "3000.45"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "3",
+   "unit_price": "2237.87",
+   "amount": "6713.61"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "10",
+   "unit_price": "580.94",
+   "amount": "5809.40"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "1",
+   "unit_price": "1393.45",
+   "amount": "1393.45"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "2",
+   "unit_price": "344.82",
+   "amount": "689.64"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "2",
+   "unit_price": "1785.48",
+   "amount": "3570.96"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "3",
+   "unit_price": "2327.01",
+   "amount": "6981.03"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "2",
+   "unit_price": "2178.77",
+   "amount": "4357.54"
+  },
+  {
+   "description": "Data logger USB, 8ch",
+   "quantity": "1",
+   "unit_price": "531.08",
+   "amount": "531.08"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "25",
+   "unit_price": "1653.59",
+   "amount": "41339.75"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "5",
+   "unit_price": "1953.52",
+   "amount": "9767.60"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "25",
+   "unit_price": "57.49",
+   "amount": "1437.25"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "1",
+   "unit_price": "1629.84",
+   "amount": "1629.84"
+  },
+  {
+   "description": "Stainless fitting 1/4in NPT",
+   "quantity": "5",
+   "unit_price": "407.95",
+   "amount": "2039.75"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "1",
+   "unit_price": "1050.51",
+   "amount": "1050.51"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "12",
+   "unit_price": "196.37",
+   "amount": "2356.44"
+  },
+  {
+   "description": "Ceramic pour-over dripper",
+   "quantity": "5",
+   "unit_price": "401.52",
+   "amount": "2007.60"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "3",
+   "unit_price": "1650.13",
+   "amount": "4950.39"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "25",
+   "unit_price": "1495.82",
+   "amount": "37395.50"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "5",
+   "unit_price": "1563.62",
+   "amount": "7818.10"
+  },
+  {
+   "description": "Thermocouple type K",
+   "quantity": "3",
+   "unit_price": "1327.10",
+   "amount": "3981.30"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "5",
+   "unit_price": "1361.85",
+   "amount": "6809.25"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "1",
+   "unit_price": "1709.06",
+   "amount": "1709.06"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "1",
+   "unit_price": "441.52",
+   "amount": "441.52"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "5",
+   "unit_price": "230.80",
+   "amount": "1154.00"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "12",
+   "unit_price": "993.32",
+   "amount": "11919.84"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "12",
+   "unit_price": "2498.16",
+   "amount": "29977.92"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "5",
+   "unit_price": "707.12",
+   "amount": "3535.60"
+  },
+  {
+   "description": "Cloud storage 1TB / month",
+   "quantity": "10",
+   "unit_price": "1646.59",
+   "amount": "16465.90"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "25",
+   "unit_price": "277.10",
+   "amount": "6927.50"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "1",
+   "unit_price": "2402.39",
+   "amount": "2402.39"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "5",
+   "unit_price": "1332.33",
+   "amount": "6661.65"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "5",
+   "unit_price": "946.21",
+   "amount": "4731.05"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "5",
+   "unit_price": "250.29",
+   "amount": "1251.45"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "25",
+   "unit_price": "191.17",
+   "amount": "4779.25"
+  },
+  {
+   "description": "Freight & insurance pallet",
+   "quantity": "1",
+   "unit_price": "2146.82",
+   "amount": "2146.82"
+  },
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "5",
+   "unit_price": "1334.34",
+   "amount": "6671.70"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "12",
+   "unit_price": "1333.92",
+   "amount": "16007.04"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,49 @@
+{
+ "doc_id": "ipp-hard-total-inflated",
+ "file": "docs/ipp/hard-total-inflated.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "hard",
+  "difficulty:hard",
+  "should_flag"
+ ],
+ "description": "Printed total 19% above subtotal + VAT, no charge line explains it.",
+ "fields": {
+  "vendor_name": "Blouberg Industrial Supply CC",
+  "invoice_number": "RA-81392",
+  "invoice_date": "2025-01-16",
+  "due_date": "2025-01-30",
+  "currency": "ZAR",
+  "subtotal": 15659.82,
+  "tax_amount": 2348.97,
+  "total": 21430.46,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "LED work lamp 24V",
+   "amount": 2187.45
+  },
+  {
+   "description": "Ratchet straps 50mm x 9m (4)",
+   "amount": 2438.59
+  },
+  {
+   "description": "Air filter element, heavy duty",
+   "amount": 3867.1
+  },
+  {
+   "description": "Engine oil 15W-40, 20 L drum",
+   "amount": 7166.68
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": true,
+ "notes": ""
+}

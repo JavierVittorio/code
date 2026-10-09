@@ -1,0 +1,40 @@
+{
+ "doc_id": "ipp-clean-us-net30-terms",
+ "file": "docs/ipp/clean-us-net30-terms.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "clean",
+  "difficulty:easy"
+ ],
+ "description": "US invoice 'us_net30_terms': Net 30 payment terms with a printed due date.",
+ "fields": {
+  "vendor_name": "Acme Industrial Supply Co",
+  "invoice_number": "ACM-100401",
+  "invoice_date": "2024-04-01",
+  "due_date": "2024-05-01",
+  "currency": "USD",
+  "subtotal": 1516.0,
+  "tax_amount": 113.7,
+  "total": 1629.7,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Safety equipment bundle — hard hats, vests, gloves",
+   "amount": 1020.0
+  },
+  {
+   "description": "Lockout/tagout kit, industrial",
+   "amount": 496.0
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

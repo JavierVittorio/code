@@ -1,0 +1,48 @@
+{
+ "doc_id": "ipp-clean-fr-right-header",
+ "file": "docs/ipp/clean-fr-right-header.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "clean",
+  "difficulty:medium"
+ ],
+ "description": "French supplier, vendor block on the right.",
+ "fields": {
+  "vendor_name": "Calanque Hardware SARL",
+  "invoice_number": "AC-87051",
+  "invoice_date": "2026-03-09",
+  "due_date": "2026-04-08",
+  "currency": "EUR",
+  "subtotal": 8672.1,
+  "tax_amount": 1734.42,
+  "total": 10406.52,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Stretch wrap film 500mm x 300m",
+   "amount": 4231.44
+  },
+  {
+   "description": "Angle grinder discs 115mm (10)",
+   "amount": 1978.2
+  },
+  {
+   "description": "Hydraulic hose 1/2in, per metre",
+   "amount": 800.64
+  },
+  {
+   "description": "Air filter element, heavy duty",
+   "amount": 1661.82
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

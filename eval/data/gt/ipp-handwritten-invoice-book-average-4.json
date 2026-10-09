@@ -1,0 +1,49 @@
+{
+ "doc_id": "ipp-handwritten-invoice-book-average-4",
+ "file": "docs/ipp/handwritten-invoice-book-average-4.jpg",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "handwritten",
+  "difficulty:hard",
+  "image"
+ ],
+ "description": "Pre-printed delivery note / invoice book filled in by hand (average handwriting).",
+ "fields": {
+  "vendor_name": "Brandkop Office Supplies (Pty) Ltd",
+  "invoice_number": "1168",
+  "invoice_date": "2026-05-16",
+  "due_date": "2026-05-30",
+  "currency": "NAD",
+  "subtotal": 16252.05,
+  "tax_amount": 2437.81,
+  "total": 18689.86,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Angle grinder discs 115mm (10)",
+   "amount": 1113.93
+  },
+  {
+   "description": "Engine oil 15W-40, 20 L drum",
+   "amount": 11436.8
+  },
+  {
+   "description": "Hex bolts M12 x 50 galvanised (box 50)",
+   "amount": 613.74
+  },
+  {
+   "description": "Brake pads, trailer axle set",
+   "amount": 3087.58
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

@@ -1,0 +1,89 @@
+{
+ "doc_id": "synth-04-uk-discount",
+ "file": "docs/synth/synth-04-uk-discount.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 1,
+ "tags": [
+  "synthetic",
+  "locale:UK",
+  "layout:compact",
+  "absent_fields",
+  "ship_to"
+ ],
+ "description": "UK compact invoice, 7 items, absent=['payment_terms']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "2026-53670",
+  "invoice_date": "2026-04-07",
+  "due_date": "2026-05-07",
+  "currency": "GBP",
+  "po_number": "PO-39236",
+  "payment_terms": null,
+  "vendor_name": "Halden Marine Electronics Ltd",
+  "vendor_address": "Unit 4, Ocean Quay, Southampton SO14 3JP, United Kingdom",
+  "vendor_tax_id": "GB 762 0193 54",
+  "bill_to_name": "Ridgeway Public Schools",
+  "bill_to_address": "1400 Ridgeway Ave, Portland, OR 97214, USA",
+  "ship_to_name": "Ridgeway Central Warehouse",
+  "ship_to_address": "77 NE Columbia Blvd, Portland, OR 97211, USA",
+  "subtotal": "39665.55",
+  "discount": "1983.28",
+  "tax_rate": "20",
+  "tax_amount": "7536.45",
+  "total": "45218.72"
+ },
+ "line_items": [
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "1",
+   "unit_price": "2402.61",
+   "amount": "2402.61"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "2",
+   "unit_price": "1897.11",
+   "amount": "3794.22"
+  },
+  {
+   "description": "Onsite installation (hours)",
+   "quantity": "3",
+   "unit_price": "893.95",
+   "amount": "2681.85"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "3",
+   "unit_price": "1029.32",
+   "amount": "3087.96"
+  },
+  {
+   "description": "Oak worktop 3000x600x40mm",
+   "quantity": "25",
+   "unit_price": "739.04",
+   "amount": "18476.00"
+  },
+  {
+   "description": "Stainless fitting 1/4in NPT",
+   "quantity": "5",
+   "unit_price": "1516.65",
+   "amount": "7583.25"
+  },
+  {
+   "description": "Consulting - solution design (hours)",
+   "quantity": "1",
+   "unit_price": "1639.66",
+   "amount": "1639.66"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

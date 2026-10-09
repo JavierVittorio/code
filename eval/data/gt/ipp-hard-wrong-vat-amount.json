@@ -1,0 +1,49 @@
+{
+ "doc_id": "ipp-hard-wrong-vat-amount",
+ "file": "docs/ipp/hard-wrong-vat-amount.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "hard",
+  "difficulty:hard",
+  "should_flag"
+ ],
+ "description": "VAT printed as 15% but the amount is 10% of the subtotal; total follows it.",
+ "fields": {
+  "vendor_name": "Klipspruit Hardware (Pty) Ltd",
+  "invoice_number": "2026/8616",
+  "invoice_date": "2026-01-24",
+  "due_date": "2026-02-23",
+  "currency": "ZAR",
+  "subtotal": 5966.37,
+  "tax_amount": 596.64,
+  "total": 6563.01,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Nitrile work gloves, size L (pack 12)",
+   "amount": 769.36
+  },
+  {
+   "description": "Hydraulic hose 1/2in, per metre",
+   "amount": 1295.8
+  },
+  {
+   "description": "LED work lamp 24V",
+   "amount": 1681.3
+  },
+  {
+   "description": "Hex bolts M12 x 50 galvanised (box 50)",
+   "amount": 2219.91
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": true,
+ "notes": ""
+}

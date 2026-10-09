@@ -22,7 +22,7 @@ from . import confidence, grounding, ocr
 from .config import Settings
 from .ingest import Page, load_pages
 from .llm import LLMClient, LLMError, LLMResponse
-from .normalize import parse_currency, parse_date, parse_money, parse_number, parse_rate
+from .normalize import parse_currency, parse_date, parse_doctype, parse_money, parse_number, parse_rate
 from .prompts import PROMPT_VERSION, extraction_messages, reask_messages
 from .schema import FIELD_SPECS, Check, ExtractedField, ExtractionResult, Kind, LineItem, RawInvoice, Usage
 from .validate import run_checks
@@ -33,10 +33,13 @@ _PARSERS = {
     Kind.text: lambda v: str(v).strip() or None,
     Kind.ident: lambda v: str(v).strip() or None,
     Kind.date: parse_date,
-    Kind.money: parse_money,
+    Kind.money: lambda v: None if (m := parse_money(v)) is None else abs(m),  # magnitudes; sign is in document_type
     Kind.rate: parse_rate,
     Kind.currency: parse_currency,
+    Kind.doctype: parse_doctype,
 }
+# Fields whose abstention alone sends a document to human review.
+CRITICAL_FIELDS = ("invoice_number", "invoice_date", "vendor_name", "total", "currency")
 _NULLISH = {"", "null", "none", "n/a", "na", "-", "—", "not found", "not present", "unknown"}
 
 
@@ -83,11 +86,22 @@ def type_line_items(raw: RawInvoice) -> list[LineItem]:
         items.append(LineItem(
             description=None if _is_null(r.description) else str(r.description).strip(),
             quantity=None if _is_null(r.quantity) else parse_number(r.quantity),
-            unit_price=None if _is_null(r.unit_price) else parse_money(r.unit_price),
-            amount=None if _is_null(r.amount) else parse_money(r.amount),
+            unit_price=None if _is_null(r.unit_price) else _abs(parse_money(r.unit_price)),
+            amount=None if _is_null(r.amount) else _abs(parse_money(r.amount)),
             page=r.page,
         ))
     return items
+
+
+def _abs(d):
+    return None if d is None else abs(d)
+
+
+def review_decision(fields: dict[str, ExtractedField], checks: list[Check]) -> list[str]:
+    """Why this document should go to a human (empty list = straight-through)."""
+    reasons = [f"check failed: {c.detail or c.name}" for c in checks if c.passed is False]
+    reasons += [f"abstained on {k}" for k in CRITICAL_FIELDS if fields.get(k) and fields[k].status == "abstained"]
+    return reasons
 
 
 # ------------------------------------------------------------------------------ pipeline
@@ -135,16 +149,18 @@ class Extractor:
             fields_out = self._finalize(raw, typed, fmt_err, checks, reasked, texts)
             li_conf = _line_item_conf(raw, checks, "line_items" in reasked)
             meta["notes"] = raw.notes
+            reasons = review_decision(fields_out, checks)
             result = ExtractionResult(doc_id=doc_id, fields=fields_out, line_items=items,
-                                      line_items_confidence=li_conf, checks=checks, usage=usage, meta=meta)
+                                      line_items_confidence=li_conf, checks=checks, usage=usage, meta=meta,
+                                      needs_review=bool(reasons), review_reasons=reasons)
         except (LLMError, ValueError, ValidationError) as e:
             log.warning("extraction failed for %s: %s", doc_id, e)
             result = ExtractionResult(doc_id=doc_id, status="failed", error=f"{type(e).__name__}: {e}"[:500],
-                                      usage=usage, meta=meta)
+                                      usage=usage, meta=meta, needs_review=True, review_reasons=["extraction failed"])
         except Exception as e:  # noqa: BLE001 - one bad document must never take down a batch
             log.exception("unexpected failure for %s", doc_id)
             result = ExtractionResult(doc_id=doc_id, status="failed", error=f"{type(e).__name__}: {e}"[:500],
-                                      usage=usage, meta=meta)
+                                      usage=usage, meta=meta, needs_review=True, review_reasons=["extraction failed"])
         result.usage.latency_ms = round((time.perf_counter() - t0) * 1000, 1)
         return result
 

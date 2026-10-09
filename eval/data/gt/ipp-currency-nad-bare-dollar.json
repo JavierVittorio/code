@@ -1,0 +1,48 @@
+{
+ "doc_id": "ipp-currency-nad-bare-dollar",
+ "file": "docs/ipp/currency-nad-bare-dollar.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "currency",
+  "difficulty:hard"
+ ],
+ "description": "Namibian vendor whose amounts print a bare '$' (NAD, not USD).",
+ "fields": {
+  "vendor_name": "Skeleton Bay Engineering Supplies (Pty) Ltd",
+  "invoice_number": "016850",
+  "invoice_date": "2025-04-02",
+  "due_date": "2025-05-02",
+  "currency": "NAD",
+  "subtotal": 11070.82,
+  "tax_amount": 1660.62,
+  "total": 12731.44,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Stretch wrap film 500mm x 300m",
+   "amount": 2247.96
+  },
+  {
+   "description": "Hex bolts M12 x 50 galvanised (box 50)",
+   "amount": 2061.25
+  },
+  {
+   "description": "Angle grinder discs 115mm (10)",
+   "amount": 2033.52
+  },
+  {
+   "description": "Engine oil 15W-40, 20 L drum",
+   "amount": 4728.09
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

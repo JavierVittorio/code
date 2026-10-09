@@ -1,0 +1,48 @@
+{
+ "doc_id": "ipp-hard-po-beside-invoice-number-1",
+ "file": "docs/ipp/hard-po-beside-invoice-number-1.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "hard",
+  "difficulty:hard"
+ ],
+ "description": "'Our Reference' and 'Order No' printed side by side in the same format.",
+ "fields": {
+  "vendor_name": "Suidkus Industrial Supply (Pty) Ltd",
+  "invoice_number": "TWSINV564620",
+  "invoice_date": "2026-06-06",
+  "due_date": "2026-06-20",
+  "currency": "ZAR",
+  "subtotal": 34700.13,
+  "tax_amount": 5205.02,
+  "total": 39905.15,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Safety boots, steel toe, size 9",
+   "amount": 6762.7
+  },
+  {
+   "description": "Toner cartridge, black, high yield",
+   "amount": 5588.96
+  },
+  {
+   "description": "Stretch wrap film 500mm x 300m",
+   "amount": 3790.92
+  },
+  {
+   "description": "Truck tyre 315/80R22.5 drive",
+   "amount": 18557.55
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

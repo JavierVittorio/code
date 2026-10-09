@@ -16,7 +16,7 @@ import math
 from pathlib import Path
 
 FEATURES = ["bias", "self_conf", "grounding", "checks_passed", "checks_failed", "reasked", "format_ok"]
-_PRIOR = {"bias": -2.5, "self_conf": 2.0, "grounding": 3.0, "checks_passed": 1.0, "checks_failed": -1.5,
+_PRIOR = {"bias": -3.0, "self_conf": 3.5, "grounding": 2.5, "checks_passed": 0.8, "checks_failed": -1.5,
           "reasked": -0.5, "format_ok": 1.0}
 CALIBRATION_FILE = Path(__file__).with_name("calibration.json")
 

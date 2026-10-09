@@ -17,6 +17,7 @@ _KIND_FORMAT = {
     Kind.money: "plain decimal number, no symbols or thousands separators, e.g. 1234.50",
     Kind.rate: "number in percent, e.g. 11 for 11%",
     Kind.currency: "3-letter ISO code",
+    Kind.doctype: "invoice | credit_note",
 }
 
 SYSTEM = """You are a meticulous invoice data-extraction engine. You read scanned or digital invoice pages \
@@ -37,7 +38,7 @@ distinct delivery block exists ("Ship to", "Deliver to"); otherwise null.
 6. Line items: every product/service row across ALL pages, in order, including rows continued on later pages. \
 Do NOT include subtotal, tax, discount, shipping-summary or total rows, nor "balance brought forward" rows. \
 Use null for a cell that is not printed.
-7. Amounts: "total" is the final amount payable (grand total / amount due). "subtotal" is before tax and discount.
+7. Amounts: all money values are positive magnitudes (a credit note's "(120.00)", "-120.00" or "120.00 CR" is 120.00; document_type carries the sign). "total" is the invoice grand total including tax; if a withholding/retention is deducted after the total, "total" is still the amount before that deduction. If a separate "amount payable" box converts to another currency, use that box for total and currency. "subtotal" is the pre-tax sum of the lines.
 8. Dates: resolve day/month order using the locale cues on the document (currency, address, other dates)."""
 
 

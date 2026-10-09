@@ -1,0 +1,77 @@
+{
+ "doc_id": "synth-07-us-decoy",
+ "file": "docs/synth/synth-07-us-decoy.pdf",
+ "source": "synthetic",
+ "license": "generated (this repo)",
+ "label_provenance": "exact by construction (tools/synth_invoices.py)",
+ "pages": 1,
+ "tags": [
+  "synthetic",
+  "locale:US",
+  "layout:modern",
+  "absent_fields",
+  "decoy_amounts"
+ ],
+ "description": "US modern invoice, 5 items, absent=['po_number', 'vendor_tax_id']",
+ "fields": {
+  "document_type": "invoice",
+  "invoice_number": "INV-2025-72507",
+  "invoice_date": "2025-09-08",
+  "due_date": "2025-09-22",
+  "currency": "USD",
+  "po_number": null,
+  "payment_terms": "Net 14",
+  "vendor_name": "Cobalt Ridge Software LLC",
+  "vendor_address": "2201 Market St, Suite 400, Denver, CO 80205, USA",
+  "vendor_tax_id": null,
+  "bill_to_name": "Kestrel Aviation Services",
+  "bill_to_address": "Hangar 3, Bristol Airport, Bristol BS48 3DY, United Kingdom",
+  "ship_to_name": null,
+  "ship_to_address": null,
+  "subtotal": "69662.21",
+  "discount": null,
+  "tax_rate": "8.25",
+  "tax_amount": "5747.13",
+  "total": "75409.34"
+ },
+ "line_items": [
+  {
+   "description": "Hinge, soft close, pair",
+   "quantity": "25",
+   "unit_price": "2077.42",
+   "amount": "51935.50"
+  },
+  {
+   "description": "Ethiopian Yirgacheffe 1kg",
+   "quantity": "1",
+   "unit_price": "2097.57",
+   "amount": "2097.57"
+  },
+  {
+   "description": "Calibration service, pressure gauge",
+   "quantity": "25",
+   "unit_price": "426.95",
+   "amount": "10673.75"
+  },
+  {
+   "description": "Laboratory glove nitrile (box 100)",
+   "quantity": "1",
+   "unit_price": "1968.77",
+   "amount": "1968.77"
+  },
+  {
+   "description": "Annual software license (seat)",
+   "quantity": "3",
+   "unit_price": "995.54",
+   "amount": "2986.62"
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "quantity",
+  "unit_price",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

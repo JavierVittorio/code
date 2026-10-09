@@ -1,0 +1,48 @@
+{
+ "doc_id": "ipp-clean-de-grid-eu-decimals",
+ "file": "docs/ipp/clean-de-grid-eu-decimals.pdf",
+ "source": "ipp-benchmark-v1",
+ "license": "CC-BY-4.0 (drew-ipp/invoice-extraction-benchmark)",
+ "label_provenance": "benchmark answer key (generator ground truth)",
+ "pages": 1,
+ "tags": [
+  "clean",
+  "difficulty:medium"
+ ],
+ "description": "German supplier, gridded table, 1.234,56 amounts, DD.MM.YYYY dates.",
+ "fields": {
+  "vendor_name": "Nordhafen Workshop Supplies GmbH & Co. KG",
+  "invoice_number": "IN0089266",
+  "invoice_date": "2026-04-30",
+  "due_date": "2026-06-29",
+  "currency": "EUR",
+  "subtotal": 5632.69,
+  "tax_amount": 1070.21,
+  "total": 6702.9,
+  "document_type": "invoice"
+ },
+ "line_items": [
+  {
+   "description": "Brake pads, trailer axle set",
+   "amount": 1151.18
+  },
+  {
+   "description": "Hydraulic hose 1/2in, per metre",
+   "amount": 1269.0
+  },
+  {
+   "description": "Hex bolts M12 x 50 galvanised (box 50)",
+   "amount": 2261.98
+  },
+  {
+   "description": "Angle grinder discs 115mm (10)",
+   "amount": 950.53
+  }
+ ],
+ "line_item_cells": [
+  "description",
+  "amount"
+ ],
+ "should_flag": false,
+ "notes": ""
+}

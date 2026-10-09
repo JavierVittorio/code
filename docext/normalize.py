@@ -12,11 +12,12 @@ from decimal import Decimal, InvalidOperation
 
 _CURRENCY_SYMBOLS = {
     "$": "USD", "US$": "USD", "€": "EUR", "£": "GBP", "¥": "JPY", "₹": "INR", "Rp": "IDR",
-    "RM": "MYR", "S$": "SGD", "A$": "AUD", "C$": "CAD", "₩": "KRW", "₱": "PHP", "฿": "THB", "zł": "PLN",
+    "RM": "MYR", "N$": "NAD", "S$": "SGD", "A$": "AUD", "C$": "CAD", "₩": "KRW", "₱": "PHP", "฿": "THB", "zł": "PLN",
 }
 _ISO_CODES = {
     "USD", "EUR", "GBP", "JPY", "INR", "IDR", "MYR", "SGD", "AUD", "CAD", "KRW", "PHP", "THB", "PLN",
     "CHF", "CNY", "HKD", "NZD", "SEK", "NOK", "DKK", "MXN", "BRL", "ZAR", "VND", "AED", "CZK", "HUF",
+    "NAD", "ZMW", "BWP", "KES", "NGN", "EGP", "TRY", "ILS", "SAR", "TWD",
 }
 
 
@@ -109,6 +110,15 @@ def parse_currency(v: object) -> str | None:
     if s.upper() in _ISO_CODES:
         return s.upper()
     return _CURRENCY_SYMBOLS.get(s) or (s.upper() if re.fullmatch(r"[A-Za-z]{3}", s) else None)
+
+
+def parse_doctype(v: object) -> str | None:
+    s = norm_text(v).replace(" ", "_")
+    if s in ("invoice", "tax_invoice", "commercial_invoice"):
+        return "invoice"
+    if "credit" in s or s in ("nota_de_credito", "ndc"):
+        return "credit_note"
+    return None
 
 
 def norm_text(v: object) -> str:
