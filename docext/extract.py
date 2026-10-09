@@ -14,6 +14,7 @@ import json
 import logging
 import re
 import time
+from decimal import Decimal
 from typing import Any
 
 from pydantic import ValidationError
@@ -22,9 +23,9 @@ from . import confidence, grounding, ocr
 from .config import Settings
 from .ingest import Page, load_pages
 from .llm import LLMClient, LLMError, LLMResponse
-from .normalize import parse_currency, parse_date, parse_doctype, parse_money, parse_number, parse_rate
-from .prompts import PROMPT_VERSION, extraction_messages, reask_messages
-from .schema import FIELD_SPECS, Check, ExtractedField, ExtractionResult, Kind, LineItem, RawInvoice, Usage
+from .normalize import date_readings, parse_currency, parse_date, parse_doctype, parse_money, parse_number, parse_rate
+from .prompts import LINE_ITEM_COLUMNS, PROMPT_VERSION, extraction_messages, reask_messages
+from .schema import FIELD_SPECS, Check, ExtractedField, ExtractionResult, Kind, LineItem, RawField, RawInvoice, Usage
 from .validate import run_checks
 
 log = logging.getLogger(__name__)
@@ -97,6 +98,78 @@ def _abs(d):
     return None if d is None else abs(d)
 
 
+def _analyze(raw: RawInvoice, text_layer: str):
+    """Type, derive and check one model response. Pure function of (response, embedded text)."""
+    typed, fmt_err = type_fields(raw)
+    items = type_line_items(raw)
+    derived = derive_fields(typed, items, raw)
+    checks = run_checks(typed, items, fmt_err) + text_layer_checks(typed, derived, text_layer)
+    return typed, fmt_err, items, derived, checks
+
+
+def text_layer_checks(typed: dict[str, Any], derived: dict[str, str], text_layer: str) -> list[Check]:
+    """Born-digital PDFs carry the exact printed characters. A date/amount/identifier the model reports that is
+    nowhere in that text is a misread (e.g. '2006' for a printed '2026'), so it fails a check and is re-asked.
+    Not applied to OCR text (too noisy to be a hard check; it only feeds confidence)."""
+    if not text_layer:
+        return []
+    out = []
+    for name, (kind, _) in FIELD_SPECS.items():
+        v = typed.get(name)
+        # computed money (e.g. derived subtotal) is not printed; re-ordered dates still are, so keep checking them
+        if v is None or (name in derived and kind == Kind.money) or kind not in (Kind.money, Kind.date, Kind.ident):
+            continue
+        if kind == Kind.money and v == 0:
+            continue  # '0.00' is often implied (blank tax line)
+        score = grounding.ground_value(name, v, None, text_layer)
+        if score < (0.95 if kind == Kind.ident else 1.0):
+            out.append(Check(name=f"text_layer:{name}", passed=False, fields=[name],
+                             detail=f"{name} = {v} does not appear in the document's embedded text; re-read it"))
+    return out
+
+
+_TERMS_DAYS = re.compile(r"(?:net\s*(\d{1,3})|(\d{1,3})\s*days?)", re.I)
+
+
+def _swap(d):
+    try:
+        return d.replace(day=d.month, month=d.day)
+    except ValueError:
+        return None
+
+
+def derive_fields(typed: dict[str, Any], items: list[LineItem], raw: RawInvoice | None = None) -> dict[str, str]:
+    """Deterministic, documented derivations (done in code, never by the model). Returns {field: rule}.
+
+    1. VAT-inclusive invoices print 'TOTAL (VAT inclusive)' and 'VAT included' but no pre-tax subtotal. When the
+       line amounts sum to the total (prices include VAT), subtotal = total - tax_amount.
+    2. Day/month order: if both dates are printed in an ambiguous numeric form and the payment terms say N days,
+       exactly one reading makes due - issue == N. Use it (cross-field evidence beats locale guessing).
+    """
+    derived = {}
+    inv, due, terms = typed.get("invoice_date"), typed.get("due_date"), typed.get("payment_terms")
+    m = _TERMS_DAYS.search(str(terms or ""))
+    if raw is not None and inv and due and m:
+        n = int(m.group(1) or m.group(2))
+        ev = [str((raw.fields.get(k) or RawField()).evidence or "") for k in ("invoice_date", "due_date")]
+        # each printed date is read independently (models are sometimes inconsistent within one document)
+        ri, rd = date_readings(ev[0]) or {inv}, date_readings(ev[1]) or {due}
+        fits = [(i, d) for i in ri for d in rd if (d - i).days == n]
+        if (due - inv).days != n and len(fits) == 1:
+            new_inv, new_due = fits[0]
+            for k, old_v, new_v in (("invoice_date", inv, new_inv), ("due_date", due, new_due)):
+                if new_v != old_v:
+                    typed[k] = new_v
+                    derived[k] = f"day/month order resolved by payment terms ({n} days)"
+    total, tax, sub = typed.get("total"), typed.get("tax_amount"), typed.get("subtotal")
+    amounts = [it.amount for it in items if it.amount is not None]
+    if sub is None and total is not None and tax and amounts and len(amounts) == len(items) \
+            and abs(sum(amounts) - total) <= Decimal("0.02"):
+        typed["subtotal"] = total - tax
+        derived["subtotal"] = "total - tax_amount (VAT-inclusive line prices)"
+    return derived
+
+
 def review_decision(fields: dict[str, ExtractedField], checks: list[Check]) -> list[str]:
     """Why this document should go to a human (empty list = straight-through)."""
     reasons = [f"check failed: {c.detail or c.name}" for c in checks if c.passed is False]
@@ -116,17 +189,19 @@ class Extractor:
         t0 = time.perf_counter()
         usage = Usage()
         meta: dict[str, Any] = {"model": self.s.model, "prompt_version": PROMPT_VERSION,
-                                "image_profile": self.s.image_profile, "calibration": confidence.COEF_VERSION,
+                                "image_profile": self.s.image_profile, "output_format": self.s.output_format,
+                                "calibration": confidence.COEF_VERSION,
                                 "abstain_threshold": self.s.abstain_threshold, "attempts": []}
         try:
             pages = await asyncio.to_thread(load_pages, data, filename, self.s.image_profile, self.s.max_pages)
             meta["pages_sent"] = [p.index for p in pages]
             meta["total_pages"] = pages[0].meta["total_pages"] if pages else 0
 
-            raw_dict, raw = await self._call_and_parse(extraction_messages(pages, self.s.image_profile), usage, meta)
-            typed, fmt_err = type_fields(raw)
-            items = type_line_items(raw)
-            checks = run_checks(typed, items, fmt_err)
+            raw_dict, raw = await self._call_and_parse(
+                extraction_messages(pages, self.s.image_profile, self.s.output_format), usage, meta)
+            texts = await self._page_texts(pages)
+            layer = "\n".join(p.text_layer for p in pages if p.text_layer)
+            typed, fmt_err, items, derived, checks = _analyze(raw, layer)
 
             reasked: set[str] = set()
             failed = [c for c in checks if c.passed is False]
@@ -137,16 +212,13 @@ class Extractor:
                     fix_dict, fix = await self._call_and_parse(
                         reask_messages(pages, self.s.image_profile, raw_dict, problems, fields), usage, meta, "reask")
                     raw_dict, raw = _merge(raw_dict, fix_dict, fields)
-                    typed, fmt_err = type_fields(raw)
-                    items = type_line_items(raw)
-                    checks = run_checks(typed, items, fmt_err)
+                    typed, fmt_err, items, derived, checks = _analyze(raw, layer)
                     reasked = set(fields)
                 except (LLMError, ValueError, ValidationError) as e:  # keep first-pass result
                     meta["reask_error"] = str(e)[:300]
                     reasked = set(fields)
 
-            texts = await self._page_texts(pages)
-            fields_out = self._finalize(raw, typed, fmt_err, checks, reasked, texts)
+            fields_out = self._finalize(raw, typed, fmt_err, checks, reasked, texts, derived)
             li_conf = _line_item_conf(raw, checks, "line_items" in reasked)
             meta["notes"] = raw.notes
             reasons = review_decision(fields_out, checks)
@@ -200,13 +272,21 @@ class Extractor:
         return {p.index: await asyncio.to_thread(ocr.page_text, p) for p in pages}
 
     def _finalize(self, raw: RawInvoice, typed: dict, fmt_err: dict, checks: list[Check], reasked: set[str],
-                  texts: dict[int, str]) -> dict[str, ExtractedField]:
+                  texts: dict[int, str], derived: dict[str, str] | None = None) -> dict[str, ExtractedField]:
         all_text = "\n".join(texts.values())
         out: dict[str, ExtractedField] = {}
         for name in FIELD_SPECS:
             rf = raw.fields.get(name)
             self_conf = _clamp(rf.confidence if rf and rf.confidence is not None else 0.5)
             raw_val = None if rf is None or _is_null(rf.value) else str(rf.value)
+            if derived and name in derived:  # computed in code from printed values; auditable via evidence
+                val = typed[name]
+                sig = {"self_conf": 1.0, "grounding": 1.0, "derived": derived[name], "format_ok": True, "reasked": False,
+                       "checks_passed": sum(1 for c in checks if c.passed is True and name in c.fields),
+                       "checks_failed": sum(1 for c in checks if c.passed is False and name in c.fields)}
+                out[name] = ExtractedField(value=val, status="extracted", confidence=round(confidence.fuse(sig), 3),
+                                           evidence=f"derived: {derived[name]}", raw_value=str(val), signals=sig)
+                continue
             if raw_val is None:
                 out[name] = ExtractedField(value=None, status="absent", confidence=round(self_conf, 3))
                 continue
@@ -245,10 +325,13 @@ def _coerce_shape(d: dict) -> dict:
         d = {"fields": {k: d[k] for k in FIELD_SPECS if k in d}, **{k: v for k, v in d.items() if k not in FIELD_SPECS}}
     f = d.get("fields") or {}
     for k, v in list(f.items()):
-        if not isinstance(v, dict):  # bare value instead of {value, evidence, ...}
+        if isinstance(v, list):  # compact format: [value, evidence, page, confidence]
+            f[k] = dict(zip(("value", "evidence", "page", "confidence"), v))
+        elif not isinstance(v, dict):  # bare value instead of {value, evidence, ...}
             f[k] = {"value": v}
     if not isinstance(d.get("line_items"), list):
         d["line_items"] = []
+    d["line_items"] = [dict(zip(LINE_ITEM_COLUMNS, r)) if isinstance(r, list) else r for r in d["line_items"]]
     return d
 
 

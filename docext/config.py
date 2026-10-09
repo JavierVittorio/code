@@ -44,6 +44,7 @@ class Settings:
     timeout_s: float = field(default_factory=lambda: float(_env("LLM_TIMEOUT_S", "120")))
     max_retries: int = field(default_factory=lambda: int(_env("LLM_MAX_RETRIES", "4")))
     image_profile: str = field(default_factory=lambda: _env("IMAGE_PROFILE", "optimized"))
+    output_format: str = field(default_factory=lambda: _env("OUTPUT_FORMAT", "verbose"))  # verbose | compact
     abstain_threshold: float = field(default_factory=lambda: float(_default_threshold()))
     cache_dir: str = field(default_factory=lambda: _env("CACHE_DIR", ".cache/llm"))
     cache_enabled: bool = field(default_factory=lambda: _env("CACHE_ENABLED", "1") == "1")

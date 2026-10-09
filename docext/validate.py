@@ -35,7 +35,8 @@ def run_checks(v: dict[str, object], items: list[LineItem], format_errors: dict[
         target, tname = (sub, "subtotal") if sub is not None else (
             (total, "total") if tax is None and disc is None and total is not None else (None, ""))
         if target is not None:
-            ok = _close(s, target)
+            # VAT-inclusive pricing: lines sum to the total, not to the pre-tax subtotal
+            ok = _close(s, target) or (tname == "subtotal" and total is not None and tax and _close(s, total))
             checks.append(Check(name="line_items_sum", passed=ok, fields=["line_items", tname],
                                 detail="" if ok else f"sum of {len(amounts)} line amounts = {s}, but {tname} = {target}"))
     elif items:

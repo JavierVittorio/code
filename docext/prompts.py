@@ -8,7 +8,7 @@ import json
 from .ingest import Page
 from .schema import FIELD_SPECS, Kind
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 
 _KIND_FORMAT = {
     Kind.text: "string",
@@ -30,16 +30,30 @@ do not compute tax from a rate).
 2. For every non-null value give "evidence": the shortest verbatim snippet from the page that contains it \
 (copy the characters as printed, including the original number/date format), and "page": the 1-based page number.
 3. "confidence" is your probability (0.0-1.0) that the value is exactly correct. Use low values when text is \
-blurry, cut off, handwritten, or when you had to choose between candidates.
+blurry, cut off, handwritten, or when you had to choose between candidates. Do not default to 1.0.
 4. Normalize "value" to the requested format; keep "evidence" verbatim.
 5. Parties: vendor = the business that ISSUES the invoice and gets paid (letterhead/logo, "From", "Remit to"). \
 bill_to = the customer being charged ("Bill to", "Sold to", "Customer", "Invoice to"). ship_to only if a \
 distinct delivery block exists ("Ship to", "Deliver to"); otherwise null.
-6. Line items: every product/service row across ALL pages, in order, including rows continued on later pages. \
+6. invoice_number is ONLY the number labelled as the invoice / tax invoice / credit note / document number. \
+Purchase order, order, delivery note, quote, account, customer and "your/our reference" numbers are NOT invoice \
+numbers: if no invoice number is printed, invoice_number is null.
+7. Line items: every product/service row across ALL pages, in order, including rows continued on later pages. \
 Do NOT include subtotal, tax, discount, shipping-summary or total rows, nor "balance brought forward" rows. \
 Use null for a cell that is not printed.
-7. Amounts: all money values are positive magnitudes (a credit note's "(120.00)", "-120.00" or "120.00 CR" is 120.00; document_type carries the sign). "total" is the invoice grand total including tax; if a withholding/retention is deducted after the total, "total" is still the amount before that deduction. If a separate "amount payable" box converts to another currency, use that box for total and currency. "subtotal" is the pre-tax sum of the lines.
-8. Dates: resolve day/month order using the locale cues on the document (currency, address, other dates)."""
+8. Amounts: all money values are positive magnitudes (a credit note's "(120.00)", "-120.00" or "120.00 CR" is 120.00; \
+document_type carries the sign). "total" is the invoice grand total including tax; if a withholding/retention is \
+deducted after the total, "total" is still the amount before that deduction. "subtotal" is the pre-tax sum of the \
+lines as printed (e.g. "Subtotal", "Total excl. VAT", "Total exclusive").
+9. Dual currency: if a box such as "TOTAL INVOICE AMOUNT PAYABLE" or "Amount payable in ZAR" states the payable \
+amount in a different currency than the lines, then total AND currency come from that payable box.
+10. Dates - numeric dates are ambiguous. Decide day/month order from the VENDOR's country (address, phone \
+prefix, tax-id format, currency): United States vendors write MM/DD/YYYY; vendors in the UK, Europe, Africa \
+(South Africa, Namibia, Zambia...), Asia (Indonesia, India...), Latin America and Australia write DD/MM/YYYY. \
+A part greater than 12 settles it. Use the same order for every date on the document.
+11. Currency: return the ISO code even when only a symbol is printed, using the vendor's country to resolve \
+symbols: "$" from a US vendor = USD, "$" or "N$" from a Namibian vendor = NAD, "R" in South Africa = ZAR, \
+"K" in Zambia = ZMW, "£" = GBP, "€" = EUR, "Rp" = IDR. Null only if there is no currency cue at all."""
 
 
 def _skeleton() -> dict:
@@ -69,12 +83,29 @@ def _image_parts(pages: list[Page], profile: str) -> list[dict]:
     return parts
 
 
-def extraction_messages(pages: list[Page], profile: str) -> list[dict]:
-    instr = (
-        "Extract the invoice below.\n\nField definitions:\n" + _field_guide()
-        + "\n\nReturn JSON exactly in this shape (all field keys present):\n"
-        + json.dumps(_skeleton(), indent=1)
-    )
+LINE_ITEM_COLUMNS = ["description", "quantity", "unit_price", "amount", "page"]
+
+
+def _compact_skeleton() -> dict:
+    """Same information, fewer output tokens: absent fields are omitted (not emitted as null objects) and
+    line items are positional rows (keys are not repeated per row; matters for 100+ row invoices)."""
+    return {
+        "fields": {"<field name>": ["<value>", "<verbatim evidence>", "<page int>", "<confidence 0..1>"]},
+        "line_items": [["<description>", "<quantity | null>", "<unit_price | null>", "<amount | null>", "<page>"]],
+        "line_items_confidence": "<0..1>",
+        "notes": "<optional, short>",
+    }
+
+
+def extraction_messages(pages: list[Page], profile: str, output_format: str = "verbose") -> list[dict]:
+    if output_format == "compact":
+        shape = ("Return compact JSON in this shape. Include ONLY fields that are printed on the document; omit "
+                 "absent fields entirely (omitted = null). Each field is [value, evidence, page, confidence]; each "
+                 "line item is a row [" + ", ".join(LINE_ITEM_COLUMNS) + "]. No whitespace or indentation:\n"
+                 + json.dumps(_compact_skeleton()))
+    else:
+        shape = "Return JSON exactly in this shape (all field keys present):\n" + json.dumps(_skeleton(), indent=1)
+    instr = "Extract the invoice below.\n\nField definitions:\n" + _field_guide() + "\n\n" + shape
     return [
         {"role": "system", "content": SYSTEM},
         {"role": "user", "content": [{"type": "text", "text": instr}, *_image_parts(pages, profile)]},

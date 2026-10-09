@@ -53,8 +53,12 @@ def ground_value(name: str, value: object, evidence: str | None, text: str) -> f
             return 0.6 * fuzz.partial_ratio(norm_text(evidence), hay) / 100
         return 0.0
     if kind == Kind.date:
+        # exact rendering on the page -> fully grounded; fuzzy matches are capped (a 1-char year error is a
+        # different date, e.g. '05/11/2006' vs printed '05/11/2026' is 90% similar)
+        if any(f" {norm_text(c)} " in f" {hay} " for c in _date_strings(value)):
+            return 1.0
         candidates = _date_strings(value) + ([evidence] if evidence else [])
-        best = max(fuzz.partial_ratio(norm_text(c), hay) for c in candidates) / 100
+        best = 0.6 * max(fuzz.partial_ratio(norm_text(c), hay) for c in candidates) / 100
         readings = date_readings(evidence) if evidence else set()
         if readings and value not in readings:
             best *= 0.5  # evidence cannot mean this date under any day/month order -> suspicious
